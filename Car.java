@@ -10,6 +10,11 @@ public class Car extends Shape {//I am extending shape since I think this'll be 
     private int speed = 0;
     private int handling = 0;
     private int breakdownChance = 0;
+
+       //add the rectangle constructor for size and adding the picture
+    //Method in car class: check for breakdown chance
+    //Method for handling check.
+
     public Car(){
         image = new Image("");
         tire = 0;
