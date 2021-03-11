@@ -1,7 +1,8 @@
+import java.util.Random;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Rectangle;
 
-public class Car extends Shape {//I am extending shape since I think this'll be necessary to paste the picture on the GUI, and to translate it.
+public class Car extends Rectangle {//I am extending shape since I think this'll be necessary to paste the picture on the GUI, and to translate it.
     private Image image;
     private int tire;
     private int engine;
@@ -11,9 +12,7 @@ public class Car extends Shape {//I am extending shape since I think this'll be 
     private int handling = 0;
     private int breakdownChance = 0;
 
-       //add the rectangle constructor for size and adding the picture
-    //Method in car class: check for breakdown chance
-    //Method for handling check.
+    //add the rectangle constructor for size and adding the picture
 
     public Car(){
         image = new Image("");
@@ -23,14 +22,18 @@ public class Car extends Shape {//I am extending shape since I think this'll be 
         color = 0;
     }
 
-    public Car(int tire, int engine, int type, int color){
+    public Car(int tire, int engine, int type, int color, int xSize, int ySize){
+        super(xSize,ySize);
+        
+        this.tire = tire;
+        setTiresEffect(tire);
+
+        this.engine = engine;
+        setEngineEffect(engine);
+
         this.type = type;
         this.color = color;
         image = setCarPicture(type, color);
-        this.tire = tire;
-        setTiresEffect(tire);
-        this.engine = engine;
-        setEngineEffect(engine);
     }
 
 
@@ -128,6 +131,50 @@ public class Car extends Shape {//I am extending shape since I think this'll be 
         }
     }
 
+    public boolean doBreakdownCheck(){// 3, (4,5,6), (7,8,9)
+        Boolean breakdown = false;
+        int x;
+        Random randomGen = new Random();
+        if(breakdownChance == 3){ //if breakdown chance is 3, the lowest. it will NEVER Breakdown.
+            breakdown = false;
+        }
+        else if(breakdownChance <= 6){
+            x = randomGen.nextInt(3);//0-2, three chances, 2 to pass. one to fail (placeholder values)
+            if(x == 0){
+                breakdown = true;
+            }
+        }
+        else if(breakdownChance <= 9){
+            x = randomGen.nextInt(2);//0-1 two chances, one to pass, one to fail (placeholder values)
+            if(x == 0){
+                breakdown = true;
+            }
+        }
+        return breakdown;
+    }
+
+    public boolean doHandlingCheck(){// 3, (4,5,6), (7,8,9)
+        Boolean handleFailure = false;
+        int x;
+        Random randomGen = new Random();
+        if(handling == 3){ //if breakdown chance is 3, the lowest. it will NEVER Breakdown.
+            handleFailure = false;
+        }
+        else if(handling > 3){
+            x = randomGen.nextInt(3);//0-2, three chances, 2 to pass. one to fail (placeholder values)
+            if(x == 0){
+                handleFailure = true;
+            }
+        }
+        else if(handling > 6){
+            x = randomGen.nextInt(2);//0-1 two chances, one to pass, one to fail (placeholder values)
+            if(x == 0){
+                handleFailure = true;
+            }
+        }
+        return handleFailure;
+    }
+
 
     public Image getImage() {
         return image;
@@ -144,13 +191,13 @@ public class Car extends Shape {//I am extending shape since I think this'll be 
     public int getColor() {
         return color;
     }
-    public int getSpeedVariable() {
+    public int getSpeed() {
         return speed;
     }
-    public int getHandlingVariable() {
+    public int getHandling() {
         return handling;
     }
-    public int getBreakdownChanceVariable() {
+    public int getBreakdownChance() {
         return breakdownChance;
     }
 
@@ -170,13 +217,20 @@ public class Car extends Shape {//I am extending shape since I think this'll be 
     public void setColor(int color) {
         this.color = color;
     }
-    public void setSpeedVariable(int speedVariable) {
-        this.speed = speedVariable;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
-    public void setHandlingVariable(int handlingVariable) {
-        this.handling = handlingVariable;
+    public void setHandling(int handling) {
+        this.handling = handling;
     }
-    public void setBreakdownChanceVariable(int breakdownChanceVariable) {
-        this.breakdownChance = breakdownChanceVariable;
+    public void setBreakdownChance(int breakdownChance) {
+        this.breakdownChance = breakdownChance;
+    }
+
+    @Override
+    public String toString() {
+        String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " + getColor() +
+        " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() );
+        return s;
     }
 }
