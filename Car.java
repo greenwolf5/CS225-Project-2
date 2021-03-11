@@ -41,7 +41,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         if(type == 1){
             speed +=1;
             handling +=1;
-            breakdownChance +=1;
             if(color == 1){
                 image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");//PLACE HOLDER PICTURES
             }
@@ -79,7 +78,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             }
         }
         else if(type ==3){
-            speed +=3;
+            speed +=4;
             handling +=3;
             breakdownChance +=3;
             if(color == 1){
@@ -119,7 +118,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void setEngineEffect(int engine){
         if(engine == 1){
             speed +=1;
-            breakdownChance +=1;
         }
         if(engine ==2){
             speed +=2;
@@ -131,11 +129,11 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
     }
 
-    public boolean doBreakdownCheck(){// 3, (4,5,6), (7,8,9)
+    public boolean doBreakdownCheck(){// 0,1,2,3,(4,5,6) (,7,8,9,10)
         Boolean breakdown = false;
         int x;
         Random randomGen = new Random();
-        if(breakdownChance == 3){ //if breakdown chance is 3, the lowest. it will NEVER Breakdown.
+        if(breakdownChance <= 3){ //if breakdown chance is 3 it will NEVER Breakdown.
             breakdown = false;
         }
         else if(breakdownChance <= 6){
@@ -144,7 +142,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 breakdown = true;
             }
         }
-        else if(breakdownChance <= 9){
+        else{
             x = randomGen.nextInt(2);//0-1 two chances, one to pass, one to fail (placeholder values)
             if(x == 0){
                 breakdown = true;
@@ -153,20 +151,20 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return breakdown;
     }
 
-    public boolean doHandlingCheck(){// 3, (4,5,6), (7,8,9)
+    public boolean doHandlingCheck(){// 0,1,2,3,(4,5,6) (,7,8,9,10)
         Boolean handleFailure = false;
         int x;
         Random randomGen = new Random();
-        if(handling == 3){ //if breakdown chance is 3, the lowest. it will NEVER Breakdown.
+        if(handling <= 3){ //if breakdown chance is 3. it will NEVER Breakdown.
             handleFailure = false;
         }
-        else if(handling > 3){
+        else if(handling <=6){
             x = randomGen.nextInt(3);//0-2, three chances, 2 to pass. one to fail (placeholder values)
             if(x == 0){
                 handleFailure = true;
             }
         }
-        else if(handling > 6){
+        else{
             x = randomGen.nextInt(2);//0-1 two chances, one to pass, one to fail (placeholder values)
             if(x == 0){
                 handleFailure = true;
