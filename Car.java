@@ -7,7 +7,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int tire;
     private int engine;
     private int type;
-    private int color;
+    private int color; // 1 = blue, 2 = green, 3 = pink, 4 = red, 5 = yellow
     private int speed = 0;
     private int handling = 0;
     private int breakdownChance = 0;
@@ -42,19 +42,19 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             speed +=1;
             handling +=1;
             if(color == 1){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");//PLACE HOLDER PICTURES
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/blue.png?raw=true");
             }
             else if(color == 2){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/green.png?raw=true");
             }
             else if(color == 3){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/pink.png?raw=true");
             }
             else if(color == 4){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/red.png?raw=true");
             }
             else if(color == 5){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/yellow.png?raw=true");
             }
         }
         else if(type == 2){
@@ -62,19 +62,19 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=2;
             breakdownChance +=2;
             if(color == 1){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");//PLACE HOLDER PICTURES
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/blue.png?raw=true");
             }
             else if(color == 2){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/green.png?raw=true");
             }
             else if(color == 3){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/pink.png?raw=true");
             }
             else if(color == 4){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/red.png?raw=true");
             }
             else if(color == 5){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/yellow.png?raw=true");
             }
         }
         else if(type ==3){
