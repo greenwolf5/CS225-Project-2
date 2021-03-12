@@ -1,3 +1,4 @@
+//Shane Callahan
 import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -11,19 +12,23 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int speed = 0;
     private int handling = 0;
     private int breakdownChance = 0;
+    public static final int X_SIZE = 200;
+    public static final int Y_SIZE = 200;
 
     //add the rectangle constructor for size and adding the picture
 
     public Car(){
-        image = new Image("");
-        tire = 0;
-        engine = 0;
-        type = 0;
-        color = 0;
+        super(X_SIZE,Y_SIZE);
+        tire = 1;
+        engine = 1;
+        type = 1;
+        color = 1;
+        setCarPicture(1, 1);
     }
 
-    public Car(int tire, int engine, int type, int color, int xSize, int ySize){
-        super(xSize,ySize);
+    public Car(int tire, int engine, int type, int color){
+        super(X_SIZE,Y_SIZE);
+        
         
         this.tire = tire;
         setTiresEffect(tire);
