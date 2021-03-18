@@ -289,7 +289,7 @@ public class StartScene implements EventHandler<Event> {
         }
         switch (num){
             case 1:
-                carOne = new Car(type,color,tires,engine);
+                carOne = new Car(tires, engine, type, color);
                 System.out.println(carOne.toString());
                 carOnePane.getChildren().set(10, carOne.getImageView());
                 carOnePane.getChildren().set(9, createStatTable(carOne));
@@ -299,7 +299,7 @@ public class StartScene implements EventHandler<Event> {
                 carOnePane.getChildren().get(10).setLayoutY(300.0);
                 break;
             case 2:
-                carTwo = new Car(type,color,tires,engine);
+                carTwo = new Car(tires, engine, type, color);
                 carTwoPane.getChildren().set(10, carTwo.getImageView());
                 carTwoPane.getChildren().set(9, createStatTable(carTwo));
                 carTwoPane.getChildren().get(9).setLayoutX(20.0);
@@ -308,7 +308,7 @@ public class StartScene implements EventHandler<Event> {
                 carTwoPane.getChildren().get(10).setLayoutY(300.0);
                 break;
             case 3:
-                carThree = new Car(type,color,tires,engine);
+                carThree = new Car(tires, engine, type, color);
                 carThreePane.getChildren().set(10, carThree.getImageView());
                 carThreePane.getChildren().set(9, createStatTable(carThree));
                 carThreePane.getChildren().get(9).setLayoutX(20.0);
