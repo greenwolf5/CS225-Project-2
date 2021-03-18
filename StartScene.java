@@ -101,6 +101,12 @@ public class StartScene implements EventHandler<Event> {
         return btnContinue;
     }
 
+    public Car getCarOne(){return carOne;}
+
+    public Car getCarTwo(){return carTwo;}
+
+    public Car getCarThree(){return carThree;}
+
     private Pane createCarPane(Button update){
         Pane pane = new Pane();
 
@@ -131,7 +137,7 @@ public class StartScene implements EventHandler<Event> {
         Car defaultCar = new Car();
 
         pane.getChildren().addAll(type, typeChoices, color, colorChoices, tires, tireChoices, engine, engineChoices,
-                update, createStatTable(defaultCar), defaultCar.getImageView());
+                update, createStatTable(defaultCar), defaultCar);
 
         pane.getChildren().get(0).setLayoutX(20.0);
         pane.getChildren().get(0).setLayoutY(5.0);
@@ -289,9 +295,8 @@ public class StartScene implements EventHandler<Event> {
         }
         switch (num){
             case 1:
-                carOne = new Car(tires, engine, type, color);
-                System.out.println(carOne.toString());
-                carOnePane.getChildren().set(10, carOne.getImageView());
+                carOne = new Car(type,color,tires,engine);
+                carOnePane.getChildren().set(10, carOne);
                 carOnePane.getChildren().set(9, createStatTable(carOne));
                 carOnePane.getChildren().get(9).setLayoutX(20.0);
                 carOnePane.getChildren().get(9).setLayoutY(180.0);
@@ -299,8 +304,8 @@ public class StartScene implements EventHandler<Event> {
                 carOnePane.getChildren().get(10).setLayoutY(300.0);
                 break;
             case 2:
-                carTwo = new Car(tires, engine, type, color);
-                carTwoPane.getChildren().set(10, carTwo.getImageView());
+                carTwo = new Car(type,color,tires,engine);
+                carTwoPane.getChildren().set(10, carTwo);
                 carTwoPane.getChildren().set(9, createStatTable(carTwo));
                 carTwoPane.getChildren().get(9).setLayoutX(20.0);
                 carTwoPane.getChildren().get(9).setLayoutY(180.0);
@@ -308,8 +313,8 @@ public class StartScene implements EventHandler<Event> {
                 carTwoPane.getChildren().get(10).setLayoutY(300.0);
                 break;
             case 3:
-                carThree = new Car(tires, engine, type, color);
-                carThreePane.getChildren().set(10, carThree.getImageView());
+                carThree = new Car(type,color,tires,engine);
+                carThreePane.getChildren().set(10, carThree);
                 carThreePane.getChildren().set(9, createStatTable(carThree));
                 carThreePane.getChildren().get(9).setLayoutX(20.0);
                 carThreePane.getChildren().get(9).setLayoutY(180.0);
