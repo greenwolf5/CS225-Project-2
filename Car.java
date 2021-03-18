@@ -1,6 +1,7 @@
 //Shane Callahan
 import java.util.Random;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public class Car extends Rectangle {//I am extending shape since I think this'll be necessary to paste the picture on the GUI, and to translate it.
@@ -87,22 +88,33 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=3;
             breakdownChance +=3;
             if(color == 1){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");//PLACE HOLDER PICTURES
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/blue.png?raw=true");//PLACE HOLDER PICTURES
             }
             else if(color == 2){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/green.png?raw=true");
             }
             else if(color == 3){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/pink.png?raw=true");
             }
             else if(color == 4){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/red.png?raw=true");
             }
             else if(color == 5){
-                image = new Image("https://www.pinclipart.com/picdir/middle/568-5688686_cars-top-view-png-car-top-down-view.png");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/yellow.png?raw=true");
             }
         }
         return image;
+    }
+
+    public ImageView getImageView(){
+        ImageView imageView = new ImageView();
+        imageView.setImage(this.setCarPicture(this.getType(), this.getColor()));
+        imageView.setFitWidth(200);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+        imageView.setRotate(-90);
+        return imageView;
     }
 
     public void setTiresEffect(int tire){
@@ -233,7 +245,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     @Override
     public String toString() {
         String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " + getColor() +
-        " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() );
+        "and the type is " + getType() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() );
         return s;
     }
 }
