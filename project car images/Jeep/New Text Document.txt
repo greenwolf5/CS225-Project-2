@@ -1,0 +1,5 @@
+green---> #00aa20
+yellow----> #ecf40d
+red------> #f74e62
+pink----> #f087f9
+purple------->c08cfb
