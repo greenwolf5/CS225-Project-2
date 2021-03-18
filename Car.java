@@ -107,6 +107,20 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return image;
     }
 
+    public void carFire(){
+        switch (type) {
+            case 1:
+                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/jeep_fire.png?raw=true")));
+                break;
+            case 2:
+                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Truck/truck_fire.png?raw=true")));
+                break;
+            case 3:
+                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/sport_fire.png?raw=true")));
+                break;
+        }
+    }
+
     public void setTiresEffect(int tire){
         if(tire ==1){
             speed +=1;
