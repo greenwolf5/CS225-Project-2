@@ -1,7 +1,7 @@
 //Shane Callahan
 import java.util.Random;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 public class Car extends Rectangle {//I am extending shape since I think this'll be necessary to paste the picture on the GUI, and to translate it.
@@ -24,7 +24,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         engine = 1;
         type = 1;
         color = 1;
-        setCarPicture(1, 1);
+        this.setFill(new ImagePattern(setCarPicture(1, 1)));
     }
 
     public Car(int tire, int engine, int type, int color){
@@ -40,6 +40,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         this.type = type;
         this.color = color;
         image = setCarPicture(type, color);
+        this.setFill(new ImagePattern(image));
     }
 
 
@@ -104,17 +105,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             }
         }
         return image;
-    }
-
-    public ImageView getImageView(){
-        ImageView imageView = new ImageView();
-        imageView.setImage(this.setCarPicture(this.getType(), this.getColor()));
-        imageView.setFitWidth(200);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        imageView.setCache(true);
-        imageView.setRotate(-90);
-        return imageView;
     }
 
     public void setTiresEffect(int tire){
