@@ -3,3 +3,10 @@
 .vscode/launch.json
 testGui.java
 .idea/workspace.xml
+<<<<<<< Updated upstream
+=======
+
+
+//this is a line to remove in test2
+//I want this here test3
+>>>>>>> Stashed changes
