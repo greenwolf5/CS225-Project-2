@@ -13,8 +13,8 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int speed = 0;
     private int handling = 0;
     private int breakdownChance = 0;
-    public static final int X_SIZE = 100;
-    public static final int Y_SIZE = 200;
+    public static final int X_SIZE = 150;
+    public static final int Y_SIZE = 100;
 
     //add the rectangle constructor for size and adding the picture
 
