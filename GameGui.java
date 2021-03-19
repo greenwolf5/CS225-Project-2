@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 public class GameGui extends Application {
 
     private static StartScene startScene = new StartScene();
-//    private static RaceScene raceScene = new RaceScene();
+    private static RaceScene raceScene;
 //    private static EndScene endScene = new EndScene();
     private static Stage window;
 
@@ -24,7 +24,8 @@ public class GameGui extends Application {
     public static void consume(Event event){
         if(event.getSource() == startScene.getBtnContinue())
         {
-//            window.setScene(raceScene.scene());
+            raceScene = new RaceScene(startScene.getCarOne(), startScene.getCarTwo(), startScene.getCarThree());
+            window.setScene(raceScene.scene());
         }
     }
 
