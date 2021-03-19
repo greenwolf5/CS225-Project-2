@@ -47,7 +47,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public Image setCarPicture(int type, int color){
         if(type == 1){
             speed +=1;
-            handling +=1;
+            handling +=7;
             if(color == 1){
                 image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/blue.png?raw=true");
             }
@@ -86,7 +86,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
         else if(type ==3){
             speed +=4;
-            handling +=3;
+            handling +=1;
             breakdownChance +=3;
             if(color == 1){
                 image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/blue.png?raw=true");//PLACE HOLDER PICTURES
@@ -124,7 +124,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void setTiresEffect(int tire){
         if(tire ==1){
             speed +=1;
-            handling +=1;
+            handling +=3;
         }
         else if(tire ==2){
             speed +=2;
@@ -132,7 +132,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
         else if(tire == 3){
             speed +=3;
-            handling +=3;
+            handling +=1;
         }
     }
 
@@ -150,46 +150,29 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
     }
 
-    public boolean doBreakdownCheck(){// 0,1,2,3,(4,5,6) (,7,8,9,10)
+    public boolean doBreakdownCheck(){
         Boolean breakdown = false;
-        int x;
+        int carChance = (breakdownChance*10);
         Random randomGen = new Random();
-        if(breakdownChance <= 3){ //if breakdown chance is 3 it will NEVER Breakdown.
-            breakdown = false;
-        }
-        else if(breakdownChance <= 6){
-            x = randomGen.nextInt(3);//0-2, three chances, 2 to pass. one to fail (placeholder values)
-            if(x == 0){
-                breakdown = true;
-            }
-        }
-        else{
-            x = randomGen.nextInt(2);//0-1 two chances, one to pass, one to fail (placeholder values)
-            if(x == 0){
-                breakdown = true;
-            }
+        int breakChance = (randomGen.nextInt(100)+1);
+
+        if(carChance > breakChance){
+            breakdown = true;
         }
         return breakdown;
     }
 
-    public boolean doHandlingCheck(){// 0,1,2,3,(4,5,6) (,7,8,9,10)
+    public boolean doHandlingCheck(){
         Boolean handleFailure = false;
-        int x;
+        int carChance = (handling*10);
         Random randomGen = new Random();
-        if(handling <= 3){ //if breakdown chance is 3. it will NEVER Breakdown.
-            handleFailure = false;
-        }
-        else if(handling <=6){
-            x = randomGen.nextInt(3);//0-2, three chances, 2 to pass. one to fail (placeholder values)
-            if(x == 0){
-                handleFailure = true;
-            }
-        }
-        else{
-            x = randomGen.nextInt(2);//0-1 two chances, one to pass, one to fail (placeholder values)
-            if(x == 0){
-                handleFailure = true;
-            }
+        int handleChance = (randomGen.nextInt(100)+1);
+
+        System.out.println("Carchance is : " + carChance);
+        System.out.println("handleChance is: " + handleChance);
+
+        if(carChance < handleChance){
+            handleFailure = true;
         }
         return handleFailure;
     }
