@@ -13,7 +13,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int speed = 0;
     private int handling = 0;
     private int breakdownChance = 0;
-    public static final int X_SIZE = 150;
+    public static final int X_SIZE = 200;
     public static final int Y_SIZE = 100;
 
     //add the rectangle constructor for size and adding the picture
@@ -27,10 +27,10 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         this.setFill(new ImagePattern(setCarPicture(1, 1)));
     }
 
-    public Car(int tire, int engine, int type, int color){
+    public Car(int type, int color, int tire, int engine){
         super(X_SIZE,Y_SIZE);
-        
-        
+
+
         this.tire = tire;
         setTiresEffect(tire);
 
@@ -232,7 +232,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     @Override
     public String toString() {
         String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " + getColor() +
-        "and the type is " + getType() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() );
+                "and the type is " + getType() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() );
         return s;
     }
 }

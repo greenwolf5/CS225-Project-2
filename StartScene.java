@@ -1,4 +1,3 @@
-
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -51,7 +50,7 @@ public class StartScene implements EventHandler<Event> {
         update1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         update1.setTextFill(Color.GOLD);
         update1.setOnMouseEntered(E -> update1.setBackground(new Background(new BackgroundFill
-                (Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY))));
+                (Color.RED, CornerRadii.EMPTY, Insets.EMPTY))));
         update1.setOnMouseExited(E -> update1.setBackground(new Background(new BackgroundFill
                 (Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY))));
         update1.setOnMouseClicked(this);
@@ -159,7 +158,7 @@ public class StartScene implements EventHandler<Event> {
         pane.getChildren().get(8).setLayoutY(140.0);
         pane.getChildren().get(9).setLayoutX(20.0);
         pane.getChildren().get(9).setLayoutY(180.0);
-        pane.getChildren().get(10).setLayoutX(100.0);
+        pane.getChildren().get(10).setLayoutX(60.0);
         pane.getChildren().get(10).setLayoutY(300.0);
 
         pane.setPadding(new Insets(10,10,0,10));
@@ -300,7 +299,7 @@ public class StartScene implements EventHandler<Event> {
                 carOnePane.getChildren().set(9, createStatTable(carOne));
                 carOnePane.getChildren().get(9).setLayoutX(20.0);
                 carOnePane.getChildren().get(9).setLayoutY(180.0);
-                carOnePane.getChildren().get(10).setLayoutX(100.0);
+                carOnePane.getChildren().get(10).setLayoutX(60.0);
                 carOnePane.getChildren().get(10).setLayoutY(300.0);
                 break;
             case 2:
@@ -309,7 +308,7 @@ public class StartScene implements EventHandler<Event> {
                 carTwoPane.getChildren().set(9, createStatTable(carTwo));
                 carTwoPane.getChildren().get(9).setLayoutX(20.0);
                 carTwoPane.getChildren().get(9).setLayoutY(180.0);
-                carTwoPane.getChildren().get(10).setLayoutX(100.0);
+                carTwoPane.getChildren().get(10).setLayoutX(60.0);
                 carTwoPane.getChildren().get(10).setLayoutY(300.0);
                 break;
             case 3:
@@ -318,7 +317,7 @@ public class StartScene implements EventHandler<Event> {
                 carThreePane.getChildren().set(9, createStatTable(carThree));
                 carThreePane.getChildren().get(9).setLayoutX(20.0);
                 carThreePane.getChildren().get(9).setLayoutY(180.0);
-                carThreePane.getChildren().get(10).setLayoutX(100.0);
+                carThreePane.getChildren().get(10).setLayoutX(60.0);
                 carThreePane.getChildren().get(10).setLayoutY(300.0);
                 break;
         }
@@ -358,7 +357,12 @@ public class StartScene implements EventHandler<Event> {
         anchorPane.getChildren().addAll(lblTitle, lblCarOne, lblCarTwo, lblCarThree, carOnePane, carTwoPane,
                 carThreePane, btnContinue, btnHelp);
 
-        Scene scene = new Scene(anchorPane, 1000, 600);
+        Scene scene = new Scene(anchorPane, 1005, 700);
+
+        updateCar(1);
+        updateCar(2);
+        updateCar(3);
+
         return scene;
     }
 
@@ -382,6 +386,10 @@ public class StartScene implements EventHandler<Event> {
                     "breaking down and preventing the car from continuing (Lower is better)");
         }
         if(event.getSource() == btnContinue){
+            updateCar(1);
+            updateCar(2);
+            updateCar(3);
+
             GameGui.consume(event);
         }
     }
