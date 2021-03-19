@@ -16,8 +16,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public static final int X_SIZE = 200;
     public static final int Y_SIZE = 100;
 
-    //add the rectangle constructor for size and adding the picture
-
     public Car(){
         super(X_SIZE,Y_SIZE);
         tire = 1;
