@@ -27,7 +27,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         this.setFill(new ImagePattern(setCarPicture(1, 1)));
     }
 
-    public Car(int type, int color, int tire, int engine){
+    public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O
         super(X_SIZE,Y_SIZE);
 
 
