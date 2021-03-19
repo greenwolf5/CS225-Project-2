@@ -1,3 +1,6 @@
+
+
+
 import java.util.ArrayList;
 
 //importations
@@ -23,29 +26,11 @@ private Pane pane;
 private Line line;
 private Color color;
 private Text lblPointA;
-private Label lblPointB;
-private Label lblPointC;	
-private Label lblPointD;
+private Text lblPointB;
+private Text lblPointC;	
+private Text lblPointD;
 private ArrayList<Line> laneHo;
 private ArrayList<Line> laneVer;
-
-//constructor
-@SuppressWarnings("exports")
-public Track(double distance, Rectangle rec1, Rectangle rec2, Pane pane, Line line, Color color, Text lblPointA,
-		Label lblPointB, Label lblPointC, Label lblPointD) {
-	
-	this.distance = distance;
-	this.rec1 = rec1;
-	this.rec2 = rec2;
-	this.pane = pane;
-	this.line = line;
-	this.color = color;
-	this.lblPointA = lblPointA;
-	this.lblPointB = lblPointB;
-	this.lblPointC = lblPointC;
-	this.lblPointD = lblPointD;
-}
-
 /**
  * 
  */
@@ -133,32 +118,32 @@ public void setLblPointA(Text lblPointA) {
 }
 
 @SuppressWarnings("exports")
-public Label getLblPointB() {
+public Text getLblPointB() {
 	return lblPointB;
 }
 
 @SuppressWarnings("exports")
-public void setLblPointB(Label lblPointB) {
+public void setLblPointB(Text lblPointB) {
 	this.lblPointB = lblPointB;
 }
 
 @SuppressWarnings("exports")
-public Label getLblPointC() {
+public Text getLblPointC() {
 	return lblPointC;
 }
 
 @SuppressWarnings("exports")
-public void setLblPointC(Label lblPointC) {
+public void setLblPointC(Text lblPointC) {
 	this.lblPointC = lblPointC;
 }
 
 @SuppressWarnings("exports")
-public Label getLblPointD() {
+public Text getLblPointD() {
 	return lblPointD;
 }
 
 @SuppressWarnings("exports")
-public void setLblPointD(Label lblPointD) {
+public void setLblPointD(Text lblPointD) {
 	this.lblPointD = lblPointD;
 }
 
@@ -231,7 +216,9 @@ public boolean equals(Object obj) {
 }	
 
 
-public void trackpainting(Pane pane1) {
+@SuppressWarnings("exports")
+public Pane trackpainting() {
+	Pane pane1=new Pane();
 	setRec1(new Rectangle(1500,900));
 	setRec2(new Rectangle(700,300));
 	rec1.setFill(Color.BLACK);
@@ -252,14 +239,14 @@ public void trackpainting(Pane pane1) {
 	
 	  for (int i = 0; i < 20; i++) { 
 		  pane1.getChildren().addAll(lane());
-	  }
-	  
-	  for (int i = 0; i < 10; i++) {
+	  }for (int i = 0; i < 10; i++) {
 		pane1.getChildren().addAll(lane2());
+	} for (int i = 0; i <4; i++) {
+		  pane1.getChildren().addAll(labels());
 	}
-	 
-	  pane1.getChildren().addAll(labels());
+	  return pane1;
 }
+
 
 //horizontal lane()
 @SuppressWarnings({ "exports" })
@@ -320,21 +307,41 @@ public ArrayList<Line> lane2(){
 //method for Text 
 @SuppressWarnings("static-access")
 public ArrayList<Text> labels() {
-	ArrayList<Text> label=new ArrayList<Text>();
+	ArrayList<Text> text=new ArrayList<Text>();
 	lblPointA=new Text(50,50, "A");
-	//lblPointA.setText("A");
 	lblPointA.setFont(new Font("Arial", 50));
 	lblPointA.setFill(color.WHITE);
-	lblPointA.setStroke(Color.RED);
+	lblPointA.setStroke(Color.BLACK);
+	lblPointA.setLayoutX(-45);
 	
-	label.add(lblPointA);
+	lblPointB=new Text(50,50, "B");
+	lblPointB.setFont(new Font("Arial", 50));
+	lblPointB.setFill(color.WHITE);
+	lblPointB.setStroke(Color.BLACK);
+	lblPointB.setLayoutY(900);
+	lblPointB.setLayoutX(-45);
+	
+	lblPointC=new Text(50,50, "C");
+	lblPointC.setFont(new Font("Arial", 50));
+	lblPointC.setFill(color.WHITE);
+	lblPointC.setStroke(Color.BLACK);
+	lblPointC.setLayoutY(900);
+	lblPointC.setLayoutX(1490);
+	
+	lblPointD=new Text(50,50, "D");
+	lblPointD.setFont(new Font("Arial", 50));
+	lblPointD.setFill(color.WHITE);
+	lblPointD.setStroke(Color.BLACK);
+	lblPointD.setLayoutX(1490);
+	
+	text.add(lblPointA);
+	text.add(lblPointB);
+	text.add(lblPointC);
+	text.add(lblPointD);
 	
 	
-	
-	
-	return label;
+	return text;
 }
-
 
 
 }
