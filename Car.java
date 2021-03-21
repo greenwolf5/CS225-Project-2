@@ -1,8 +1,14 @@
 //Shane Callahan
+import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class Car extends Rectangle {//I am extending shape since I think this'll be necessary to paste the picture on the GUI, and to translate it.
     private Image image;
@@ -15,6 +21,9 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int breakdownChance = 0;
     public static final int X_SIZE = 200;
     public static final int Y_SIZE = 100;
+    private int breakdownFlag;
+    private int location; //1 = A, 2 = B, 3 = C, 4 = D
+    
 
     //add the rectangle constructor for size and adding the picture
 
@@ -158,8 +167,8 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
 
         if(carChance > breakChance){
             breakdown = true;
-            carFire();
         }
+        System.out.println("Car one's actual chance to breakdown is " + carChance + " and the roll it did was " + breakChance);
         return breakdown;
     }
 
@@ -168,15 +177,164 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         int carChance = (handling*10);
         Random randomGen = new Random();
         int handleChance = (randomGen.nextInt(100)+1);
-
-        System.out.println("Carchance is : " + carChance);
-        System.out.println("handleChance is: " + handleChance);
-
         if(carChance < handleChance){
             handleFailure = true;
         }
         return handleFailure;
     }
+
+
+    public Long carMovement(int startLoc){
+        int location = startLoc;
+        SequentialTransition seqT = new SequentialTransition(this);
+        Random random = new Random();
+        TranslateTransition breakdown = new TranslateTransition();
+        breakdown.setOnFinished(event -> this.carFire());
+        
+
+        Long time = System.currentTimeMillis();
+
+        if(this.doBreakdownCheck()){
+            int dur;
+            time = 0L;
+            switch (random.nextInt(4)){
+                case 0:
+                    breakdown.setByX(300);
+                    dur = (11 - this.getSpeed()) * 500;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 1;
+                    break;
+                case 1:
+                    breakdown.setByY(-100);
+                    dur = (11 - this.getSpeed()) * 250;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 2;
+                    break;
+                case 2:
+                    breakdown.setByX(-300);
+                    dur = (11 - this.getSpeed()) * 500;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 3;
+                    break;
+                case 3:
+                    breakdown.setByY(100);
+                    dur = (11 - this.getSpeed()) * 250;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 4;
+                    break;
+            }
+        }
+        System.out.println("Car one's location is " + this.getLocation());
+
+                if(breakdownFlag == 1){
+                    seqT.getChildren().add(breakdown);
+                    seqT.play();
+                    return time;
+                }
+                if(this.doHandlingCheck()){
+                    seqT.getChildren().add(spinOut());
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                else{
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                   
+                }
+                if(location == 4){
+                    location = 1;
+                }
+                else{
+                    location++;
+                }
+                if(breakdownFlag == 2){
+                    seqT.getChildren().add(breakdown);
+                    seqT.play();
+                    return time;
+                }
+                if(this.doHandlingCheck()){
+                    seqT.getChildren().add(spinOut());
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                else{
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                if(location == 4){
+                    location = 1;
+                }
+                else{
+                    location++;
+                }
+                if(breakdownFlag == 3){
+                    seqT.getChildren().add(breakdown);
+                    seqT.play();
+                    return time;
+                }
+                if(this.doHandlingCheck()){
+                    seqT.getChildren().add(spinOut());
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                else{
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                if(location == 4){
+                    location = 1;
+                }
+                else{
+                    location++;
+                }
+                if(breakdownFlag == 4){
+                    seqT.getChildren().add(breakdown);
+                    seqT.play();
+                    return time;
+                }
+                if(this.doHandlingCheck()){
+                    seqT.getChildren().add(spinOut());
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                else{
+                    seqT.getChildren().add(translate(location, this.getSpeed()));
+                }
+                seqT.play();
+
+        return time;
+    }
+
+    private RotateTransition spinOut(){
+        RotateTransition spinOut = new RotateTransition(Duration.millis(2000));
+        spinOut.setByAngle(360);
+        return spinOut;
+    }
+
+    private RotateTransition turn(){
+        RotateTransition turn = new RotateTransition(Duration.millis(500));
+        turn.setByAngle(90);
+        return turn;
+    }
+
+    private TranslateTransition translate(int location, int speed){
+        int durLong = (11 - speed) * 1000;
+        int durShort = durLong / 3;
+        TranslateTransition translateTransition = new TranslateTransition();
+        switch (location){//NONE OF THESE ARE THE CORRECT VALUES.
+            case 1:
+                translateTransition.setByX(1200);
+                translateTransition.setDuration(Duration.millis(durLong));
+                break;
+            case 2:
+                translateTransition.setByY(600);
+                translateTransition.setDuration(Duration.millis(durShort));
+                break;
+            case 3:
+                translateTransition.setByX(-1200);
+                translateTransition.setDuration(Duration.millis(durLong));
+                break;
+            case 4:
+                translateTransition.setByY(-600);
+                translateTransition.setDuration(Duration.millis(durShort));
+                break;
+        }
+        return translateTransition;
+    }
+
 
 
     public Image getImage() {
@@ -203,6 +361,9 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public int getBreakdownChance() {
         return breakdownChance;
     }
+    public int getLocation() {
+        return location;
+    }
 
     public void setImage(Image image) {
         this.image = image;
@@ -228,6 +389,9 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
     public void setBreakdownChance(int breakdownChance) {
         this.breakdownChance = breakdownChance;
+    }
+    public void setLocation(int location) {
+        this.location = location;
     }
 
     @Override

@@ -15,6 +15,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class RaceScene implements EventHandler<Event> {
@@ -27,6 +29,8 @@ public class RaceScene implements EventHandler<Event> {
     private Long carTwoTime = 0L;
     private Long carThreeTime = 0L;
     private Random random = new Random();
+    private int breakdownFlag;
+    
 
 //    private;
 //    private;
@@ -43,159 +47,47 @@ public class RaceScene implements EventHandler<Event> {
         carOne = car1;
 
         carTwo = car2;
-        carTwo.setRotate(90);
 
         carThree = car3;
-        carTwo.setRotate(180);
 
         btnStartRace = new Button("Start");
         btnStartRace.setOnMouseClicked(this);
     }
 
-    public Long carMovement(Car car, int startLoc){
-        SequentialTransition seqT = new SequentialTransition();
+    private void determineStartingLocation(Car carOne, Car carTwo, Car carThree){
+        ArrayList<Integer> locationPlaces = new ArrayList<Integer>();
+        locationPlaces.add(1);//0
+        locationPlaces.add(2);//1
+        locationPlaces.add(3);//2
+        locationPlaces.add(4);//3
+    
+        Collections.shuffle(locationPlaces);
 
-        TranslateTransition breakdown = new TranslateTransition();
-        breakdown.setOnFinished(event -> car.carFire());
-        int breakdownFlag;
-
-        Long time = System.currentTimeMillis();
-
-        if(car.doBreakdownCheck()){
-            int dur;
-            time = 0L;
-            switch (random.nextInt(4)){
-                case 0:
-                    breakdown.setByX(300);
-                    dur = (11 - car.getSpeed()) * 500;
-                    breakdown.setDuration(Duration.millis(dur));
-                    breakdownFlag = 1;
-                    break;
-                case 1:
-                    breakdown.setByY(-100);
-                    dur = (11 - car.getSpeed()) * 250;
-                    breakdown.setDuration(Duration.millis(dur));
-                    breakdownFlag = 2;
-                    break;
-                case 2:
-                    breakdown.setByX(-300);
-                    dur = (11 - car.getSpeed()) * 500;
-                    breakdown.setDuration(Duration.millis(dur));
-                    breakdownFlag = 3;
-                    break;
-                case 3:
-                    breakdown.setByY(100);
-                    dur = (11 - car.getSpeed()) * 250;
-                    breakdown.setDuration(Duration.millis(dur));
-                    breakdownFlag = 4;
-                    break;
-            }
-        }
-
-        switch(startLoc){
-            case 1:
-                if(breakdownFlag == 1){
-                    seqT.getChildren().add(breakdown);
-                    seqT.play();
-                    return time;
-                }
-                if(car.doHandlingCheck()){
-                    seqT.getChildren().add(spinOut());
-                    seqT.getChildren().add(translate(1, car.getSpeed()));
-                }
-        }
-
-
-        return time;
-
-//        while(turns < 4){
-//            if(currentLoc == 1){
-//                translateTransition.setByX(600);
-//                translateTransition.setByY(0);
-//                translateTransition.setDuration(Duration.millis(1000));
-//
-//                translateTransition.play();
-//
-//                currentLoc++;
-//                turns++;
-//            }
-//            if(currentLoc == 2){
-//                translateTransition.setByX(0);
-//                translateTransition.setByY(-200);
-//                translateTransition.setDuration(Duration.millis(1000));
-//
-//                translateTransition.play();
-//
-//                translateTransition.setOnFinished(event -> translateTransition.pause());
-//
-//                car.setRotate(car.getRotate() + 90);
-//                currentLoc++;
-//                turns++;
-//            }
-//            if(currentLoc == 3){
-//                translateTransition.setByX(-600);
-//                translateTransition.setByY(0);
-//                translateTransition.setDuration(Duration.millis(1000));
-//
-//                translateTransition.play();
-//
-//                translateTransition.setOnFinished(event -> translateTransition.pause());
-//
-//                car.setRotate(car.getRotate() + 90);
-//                currentLoc++;
-//                turns++;
-//            }
-//            if(currentLoc == 4){
-//                translateTransition.setByX(0);
-//                translateTransition.setByY(200);
-//                translateTransition.setDuration(Duration.millis(1000));
-//
-//                translateTransition.play();
-//
-//                translateTransition.setOnFinished(event -> translateTransition.pause());
-//
-//                car.setRotate(car.getRotate() + 90);
-//                currentLoc = 1;
-//                turns++;
-//            }
-//        }
+        carOne.setLocation(locationPlaces.get(0));
+        carTwo.setLocation(locationPlaces.get(1));
+        carThree.setLocation(locationPlaces.get(2));
     }
 
-    private RotateTransition spinOut(){
-        RotateTransition spinOut = new RotateTransition(Duration.millis(2000));
-        spinOut.setByAngle(360);
-        return spinOut;
-    }
-
-    private RotateTransition turn(){
-        RotateTransition turn = new RotateTransition(Duration.millis(500));
-        turn.setByAngle(90);
-        return turn;
-    }
-
-    private TranslateTransition translate(int location, int speed){
-        int durLong = (11 - speed) * 1000;
-        int durShort = durLong / 3;
-        TranslateTransition translateTransition = new TranslateTransition();
-        switch (location){
-            case 1:
-                translateTransition.setByX(600);
-                translateTransition.setDuration(Duration.millis(durLong));
-                break;
-            case 2:
-                translateTransition.setByY(-200);
-                translateTransition.setDuration(Duration.millis(durShort));
-                break;
-            case 3:
-                translateTransition.setByX(-600);
-                translateTransition.setDuration(Duration.millis(durLong));
-                break;
-            case 4:
-                translateTransition.setByY(200);
-                translateTransition.setDuration(Duration.millis(durShort));
-                break;
+    private void carPosition(Car car){
+        if(car.getLocation() == 1){
+            AnchorPane.setTopAnchor(car, 100.0);
+            AnchorPane.setLeftAnchor(car, 100.0);
+            car.setRotate(180);
         }
-        return translateTransition;
+        else if(car.getLocation() == 2){
+            AnchorPane.setTopAnchor(car, 100.0);
+            AnchorPane.setRightAnchor(car, 100.0);
+            car.setRotate(-90);
+        }
+        else if(car.getLocation() == 3){
+            AnchorPane.setBottomAnchor(car, 100.0);
+            AnchorPane.setRightAnchor(car, 100.0);
+        }
+        else{
+            AnchorPane.setBottomAnchor(car, 100.0);
+            AnchorPane.setLeftAnchor(car, 100.0);
+            car.setRotate(90);
+        }
     }
 
     public Scene scene(){
@@ -206,14 +98,13 @@ public class RaceScene implements EventHandler<Event> {
         AnchorPane.setTopAnchor(track, 40.0);
         AnchorPane.setLeftAnchor(track, 40.0);
 
-        AnchorPane.setTopAnchor(carOne, 100.0);
-        AnchorPane.setLeftAnchor(carOne, 100.0);
+        determineStartingLocation(carOne,carTwo,carThree);
 
-        AnchorPane.setTopAnchor(carTwo, 100.0);
-        AnchorPane.setRightAnchor(carTwo, 100.0);
+        carPosition(carOne);
+        carPosition(carTwo);
+        carPosition(carThree);
 
-        AnchorPane.setBottomAnchor(carThree, 100.0);
-        AnchorPane.setRightAnchor(carThree, 100.0);
+        System.out.println("Car one's location: " + carOne.getLocation() + " and carTwo's location: " + carTwo.getLocation() + " and carThree's location: " + carThree.getLocation());
 
         AnchorPane.setTopAnchor(btnStartRace, 500.0);
         AnchorPane.setLeftAnchor(btnStartRace, 500.0);
@@ -229,7 +120,7 @@ public class RaceScene implements EventHandler<Event> {
     @Override
     public void handle(Event event){
         if(event.getSource() == btnStartRace){
-            carOneTime = carMovement(carOne, 1);
+            carOneTime = carOne.carMovement(carOne.getLocation());
             System.out.println(carOneTime);
         }
     }
