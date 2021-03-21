@@ -1,0 +1,126 @@
+import javafx.animation.FadeTransition;  
+import javafx.animation.PauseTransition;  
+import javafx.animation.RotateTransition;  
+import javafx.animation.ScaleTransition;  
+import javafx.animation.SequentialTransition;  
+import javafx.animation.TranslateTransition;  
+import javafx.application.Application;  
+import javafx.scene.Group;  
+import javafx.scene.Scene;  
+import javafx.scene.paint.Color;  
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Translate;
+import javafx.stage.Stage;  
+import javafx.util.Duration;  
+public class SequentialTransitionExample extends Application{  
+
+    Duration dur2 = Duration.millis(500);
+
+    public RotateTransition rotate90(){
+        RotateTransition turn90 = new RotateTransition(dur2);
+        turn90.setByAngle(90);
+        return turn90;
+    }
+  
+    @Override  
+    public void start(Stage primaryStage) throws Exception {  
+        // TODO Auto-generated method stub  
+ 
+          
+         //Setting points for the polyogn   
+         Rectangle rec = new Rectangle(100,30);
+         rec.setX(200);
+         rec.setY(200);
+          
+         //Setting Color and Stroke properties for the polygon    
+         rec.setFill(Color.LIMEGREEN);  
+         rec.setStroke(Color.BLACK);  
+       
+         //Setting durations for the transitions  
+         Duration dur1 = Duration.millis(1000);  
+          
+       
+         RotateTransition turn90 = new RotateTransition(dur2);
+         turn90.setByAngle(90);
+
+        
+
+         RotateTransition turn90Two = new RotateTransition(dur2);
+         turn90Two.setByAngle(90);
+           
+         //Setting Translate transition  
+         TranslateTransition translate = new TranslateTransition(dur1);  
+         translate.setToX(-150);  
+
+         TranslateTransition translateTwo = new TranslateTransition(dur1);
+         translateTwo.setToY(100);
+
+         RotateTransition spinOut = new RotateTransition(dur1);
+         spinOut.setByAngle(360);
+         spinOut.setCycleCount(2);
+
+         TranslateTransition translateThree = new TranslateTransition(dur1);
+         translateThree.setToX(100);
+           
+           
+         //Instantiating Sequential Transition class by passing the list of transitions into its constructor  
+         public SequentialTransition carMove(){
+            if(doBreakdownCheck){
+            SequentialTransition seqT = new SequentialTransition (rec, translate(0),rotate90(), translateTwo,breakdown); 
+            }
+            if(handelingCheck){
+                y = random.nextInt(5);
+                if(handelingCheck == 1){
+                    if(y==1){
+                SequentialTransition seqT = new SequentialTransition (rec, spinOut() ,translate(0),rotate90(), translateTwo,rotate90(),translateThree,translate());
+                    }
+                    if(y==2){
+                        SequentialTransition seqT = new SequentialTransition (rec, translate(0),rotate90(), translateTwo,spinOut(),rotate90(),translateThree,translate());
+                        seqT.getChildren().add(seqT);
+                    }
+                } 
+                if(y == 3){
+                    SequentialTransition seqT = new SequentialTransition (rec, spinOut() ,translate(0),rotate90(), translateTwo,spinOut,rotate90(),translateThree,spinout(),translate());
+                    } 
+                
+            }
+            else{
+                SequentialTransition seqT = new SequentialTransition (rec, translate(0),rotate90(), translateTwo,rotate90(),translateThree); 
+            }
+            return seqT
+         
+         
+         }
+
+            public SequentialTransition carMove(){
+                SequentialTransition seqT = new SequentialTransition(rec);
+                    switch (handelingCheck) {
+                        case 1:
+                            seqT.getChildren().addAll(translate(),spinOut(),rotate90());
+                            seqT.getChildren().add(e)
+                            break;
+                    
+                        default:
+                            break;
+                    }
+
+                return seqT;
+         }
+           
+         //playing the transition   
+         seqT.play();  
+           
+         //Configuring the group and scene   
+         Group root = new Group();  
+         root.getChildren().addAll(rec);  
+         Scene scene = new Scene(root,490,450,Color.WHEAT);  
+         primaryStage.setScene(scene);  
+         primaryStage.setTitle("Sequential Transition Example");  
+         primaryStage.show();  
+    }  
+    public static void main(String[] args) {  
+        launch(args);  
+    }  
+  
+}  
