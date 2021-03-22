@@ -23,6 +23,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int breakdownFlag;
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
+    private double time;
     
 
     //add the rectangle constructor for size and adding the picture
@@ -34,6 +35,8 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         type = 1;
         color = 1;
         this.setFill(new ImagePattern(setCarPicture(1, 1)));
+        finalTime = new AtomicReference<>(0L);
+        location = 1;
     }
 
     public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O
@@ -168,7 +171,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         if(carChance > breakChance){
             breakdown = true;
         }
-        System.out.println("Car one's actual chance to breakdown is " + carChance + " and the roll it did was " + breakChance);
         return breakdown;
     }
 
@@ -427,6 +429,9 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public AtomicReference<Long> getFinalTime() {
         return finalTime;
     }
+    public double getTime() {
+        return time;
+    }
 
     public void setImage(Image image) {
         this.image = image;
@@ -456,8 +461,11 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void setLocation(int location) {
         this.location = location;
     }
-    public void setTime(AtomicReference<Long> finalTime) {
+    public void setFinalTime(AtomicReference<Long> finalTime) {
         this.finalTime = finalTime;
+    }
+    public void setTime(double time) {
+        this.time = time;
     }
 
     @Override
