@@ -21,10 +21,9 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int breakdownChance = 0;
     public static final int X_SIZE = 200;
     public static final int Y_SIZE = 100;
-    private int breakdownFlag;
+    private int breakdownFlag = 0;
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
-    private double time;
 
     public Car(){
         super(X_SIZE,Y_SIZE);
@@ -51,6 +50,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         this.color = color;
         image = setCarPicture(type, color);
         this.setFill(new ImagePattern(image));
+        finalTime = new AtomicReference<>(0L);
     }
 
 
@@ -558,15 +558,29 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void setFinalTime(AtomicReference<Long> finalTime) {
         this.finalTime = finalTime;
     }
-    public void setTime(double time) {
-        this.time = time;
-    }
 
     @Override
     public String toString() {
-        String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " +"and the type is " + getType()
-        + getColor() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() + " and the location is: "
+        String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " + getColor() 
+        + "and the type is " + getType() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() + " and the location is: "
          + getLocation() + " and the final time is: " + getFinalTime() + " and the time is: " + getTime());
         return s;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return tire == car.tire &&
+                engine == car.engine &&
+                type == car.type &&
+                color == car.color &&
+                speed == car.speed &&
+                handling == car.handling &&
+                breakdownChance == car.breakdownChance &&
+                breakdownFlag == car.breakdownFlag &&
+                location == car.location;
+                
     }
 }

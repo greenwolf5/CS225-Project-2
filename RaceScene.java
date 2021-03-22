@@ -85,7 +85,7 @@ public class RaceScene implements EventHandler<Event> {
         return btnEndRace;
     }
 
-    private void determineStartingLocation(Car carOne, Car carTwo, Car carThree) {
+    private void determineStartingLocation(Car carOne, Car carTwo, Car carThree) {//Shuffles the car's positions using the arrayList that will hold 1-4, no car will have the same start
         ArrayList<Integer> locationPlaces = new ArrayList<Integer>();
         locationPlaces.add(1);// 0
         locationPlaces.add(2);// 1
@@ -99,7 +99,8 @@ public class RaceScene implements EventHandler<Event> {
         carThree.setLocation(locationPlaces.get(2));
     }
 
-    private void carPosition(Car car) {
+    private void carPosition(Car car) {//Method that dermines where the car is positioned based on it's location
+    //1 = top left, 2 = top right, 3 = bottom right, 4 = bottom left.
         if (car.getLocation() == 1) {
             AnchorPane.setTopAnchor(car, 180.0);
             AnchorPane.setLeftAnchor(car, 160.0);
