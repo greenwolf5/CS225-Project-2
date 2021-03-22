@@ -133,12 +133,9 @@ public class RaceScene implements EventHandler<Event> {
             
        
                 
-                Long startTime = System.currentTimeMillis();
-                startTime = System.currentTimeMillis();
-                while (System.currentTimeMillis() - startTime < 10000) { // empty block
-                }
-                System.out.println("Car one is done: " + carOne.getFinalTime().get());
             
+                System.out.println("Car one is done: " + carOne.getFinalTime().get());
+
 
         }
     }

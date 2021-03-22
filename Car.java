@@ -246,7 +246,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                         location = 1;
                     }
                 }
-        
+                
                 seqT.play();
     }
 
