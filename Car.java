@@ -121,10 +121,10 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void carFire(){
         switch (type) {
             case 1:
-                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/jeep_fire.png?raw=true")));
+                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/truck_fire.png?raw=true")));
                 break;
             case 2:
-                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/truck_fire.png?raw=true")));
+                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/jeep_fire.png?raw=true")));
                 break;
             case 3:
                 this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/sport_fire.png?raw=true")));
@@ -191,7 +191,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         SequentialTransition seqT = new SequentialTransition(this);
         Random random = new Random();
         TranslateTransition breakdown = new TranslateTransition();
-        breakdown.setOnFinished(event -> {this.carFire();finalTime.set(0L);});
+        breakdown.setOnFinished(event -> {this.carFire(); finalTime.set(0L);});
         int turns = 0;
         
         final Long time = System.currentTimeMillis();
