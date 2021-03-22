@@ -1,5 +1,3 @@
-package car.car;
-
 //importations
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
