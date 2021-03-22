@@ -1,8 +1,6 @@
 //Shane Callahan
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
-
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
@@ -288,6 +286,115 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
 
 
+    //tire engine type color location
+
+    public String getTireString(){
+        String s = "";
+        switch (getTire()) {
+            case 1:
+                s = "Off Road";
+                break;
+            case 2:
+                s = "Street";
+                break;
+            case 3:
+                s = "Sport";
+                break;
+        }
+        return s;
+    }
+
+    public String getEngineString(){
+        String s = "";
+        switch (getEngine()) {
+            case 1:
+                s = "V4";
+                break;
+            case 2:
+                s = "V6";
+                break;
+            case 3:
+                s = "V8";
+                break;
+        }
+        return s;
+    }
+
+    public String getTypeString(){
+        String s = "";
+        switch (getType()) {
+            case 1:
+                s = "Truck";
+                break;
+            case 2:
+                s = "SUV";
+                break;
+            case 3:
+                s = "Sports Car";
+                break;
+        }
+        return s;
+    }
+    public String getColorString(){
+        String s = "";
+        switch (getColor()) {
+            case 1:
+                s = "Blue";
+                break;
+            case 2:
+                s = "Green";
+                break;
+            case 3:
+                s = "Pink";
+                break;
+            case 4:
+                s = "Red";
+                break;
+            case 5:
+                s = "Yellow";
+                break;
+        }
+        return s;
+    }
+
+    public String getLocationString(){
+        String s = "";
+        switch (getLocation()) {
+            case 1:
+                s = "A";
+                break;
+            case 2:
+                s = "B";
+                break;
+            case 3:
+                s = "C";
+                break;
+            case 4:
+                s = "D";
+                break;
+        }
+        return s;
+    }
+
+    public String getPathString(){
+        String s = "";
+        switch (getLocation()) {
+            case 1:
+                s = "A-B-C-D";
+                break;
+            case 2:
+                s = "B-C-D-A";
+                break;
+            case 3:
+                s = "C-D-A-B";
+                break;
+            case 4:
+                s = "D-A-B-C";
+                break;
+        }
+        return s;
+    }
+    
 
     public Image getImage() {
         return image;
