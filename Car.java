@@ -1,4 +1,5 @@
 //Shane Callahan
+import java.io.FileInputStream;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.animation.RotateTransition;
@@ -24,7 +25,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
     private double time;
-    //add the rectangle constructor for size and adding the picture
 
     public Car(){
         super(X_SIZE,Y_SIZE);
@@ -54,12 +54,17 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
 
 
-    public Image setCarPicture(int type, int color){
+    public Image setCarPicture(int type, int color){//Takes the car type and car color to assign the car with a picture
         if(type == 1){
             speed +=1;
             handling +=7;
             if(color == 1){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/blue.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\blue.png"); 
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    System.out.println(e + " error loading blue truck");
+                }
             }
             else if(color == 2){
                 image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/green.png?raw=true");
@@ -117,7 +122,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return image;
     }
 
-    public void carFire(){
+    public void carFire(){ //Used when car breaks down, gets fire version 
         switch (type) {
             case 1:
                 this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/truck_fire.png?raw=true")));
@@ -131,7 +136,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
     }
 
-    public void setTiresEffect(int tire){
+    public void setTiresEffect(int tire){ //Each tire has a different speed and handling stat, this establishes that for the car
         if(tire ==1){
             speed +=1;
             handling +=3;
@@ -146,7 +151,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
     }
 
-    public void setEngineEffect(int engine){
+    public void setEngineEffect(int engine){ //Each engine has a different speed and breakdownchance stat, this establishes that for the car
         if(engine == 1){
             speed +=1;
         }
@@ -160,7 +165,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
     }
 
-    public boolean doBreakdownCheck(){
+    public boolean doBreakdownCheck(){ //checks if breakdownchance passes, if so, returns true
         Boolean breakdown = false;
         int carChance = (breakdownChance*10);
         Random randomGen = new Random();
@@ -172,7 +177,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return breakdown;
     }
 
-    public boolean doHandlingCheck(){
+    public boolean doHandlingCheck(){ //checks if handling check passes if so, returns true
         Boolean handleFailure = false;
         int carChance = (handling*10);
         Random randomGen = new Random();
@@ -184,21 +189,21 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
 
 
-    public void carMovement(int startLoc){
+    public void carMovement(int startLoc){ //Car movement method.
         int location = startLoc;
-        SequentialTransition seqT = new SequentialTransition(this);
+        SequentialTransition seqT = new SequentialTransition(this);//seqT is a sequence of animation for the car.
         Random random = new Random();
         TranslateTransition breakdown = new TranslateTransition();
-        breakdown.setOnFinished(event -> this.carFire());
+        breakdown.setOnFinished(event -> this.carFire()); //When the car breaks down, after it finishes  it will call carFire()
         int turns = 0;
 
         final Long time = System.currentTimeMillis();
 
-        seqT.setOnFinished(event -> finalTime.set(System.currentTimeMillis() - time));
+        seqT.setOnFinished(event -> finalTime.set(System.currentTimeMillis() - time)); //When the seqT finishes, set finalTime to the time it took for the car to finish racing.
 
         if(this.doBreakdownCheck()){
             int dur;
-            switch (random.nextInt(4)){//breakdown check.
+            switch (random.nextInt(4)){//breakdown check, each case is a different time when it'll break down, case 0 is the start, case 3 is right before it ends.
                 case 0:
                     breakdown.setByX(300);
                     dur = (11 - this.getSpeed()) * 500;
@@ -245,27 +250,26 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 location = 1;
             }
         }
-
         seqT.play();
     }
 
-    private RotateTransition spinOut(){
+    private RotateTransition spinOut(){ //Spinout method
         RotateTransition spinOut = new RotateTransition(Duration.millis(2000));
         spinOut.setByAngle(360);
         return spinOut;
     }
 
-    private RotateTransition turn(){
+    private RotateTransition turn(){ //Turning method
         RotateTransition turn = new RotateTransition(Duration.millis(500));
         turn.setByAngle(90);
         return turn;
     }
 
-    private TranslateTransition translate(int location, int speed){
+    private TranslateTransition translate(int location, int speed){//The bulk of getting the car to move.
         int durLong = (11 - speed) * 1000;
         double durShort = durLong / 1.8;
         TranslateTransition translateTransition = new TranslateTransition();
-        switch (location){//NONE OF THESE ARE THE CORRECT VALUES.
+        switch (location){
             case 1:
                 translateTransition.setByX(1120);
                 translateTransition.setDuration(Duration.millis(durLong));
@@ -287,9 +291,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
 
 
-    //tire engine type color location
-
-    public String getTireString(){
+    public String getTireString(){//To get the String verson of the number, 1 = Off Road, 2 = Street, 3 = Sport.
         String s = "";
         switch (getTire()) {
             case 1:
@@ -305,7 +307,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return s;
     }
 
-    public String getEngineString(){
+    public String getEngineString(){//To get the string version of the number, 1 = V4, 2 = V6, 3 = V8
         String s = "";
         switch (getEngine()) {
             case 1:
@@ -321,7 +323,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return s;
     }
 
-    public String getTypeString(){
+    public String getTypeString(){//To get the string version of the number, 1 = truck, 2 = SUV, 3 = Sports Car
         String s = "";
         switch (getType()) {
             case 1:
@@ -336,7 +338,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
         return s;
     }
-    public String getColorString(){
+    public String getColorString(){//To get the string version of the number, 1 = Blue, 2 = Green, 3 = Pink, 4 = Red, 5 = Yellow
         String s = "";
         switch (getColor()) {
             case 1:
@@ -358,7 +360,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return s;
     }
 
-    public String getLocationString(){
+    public String getLocationString(){//To get the string version of the number, 1 = A, 2 = B, 3 = C, 4 = D
         String s = "";
         switch (getLocation()) {
             case 1:
@@ -377,7 +379,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return s;
     }
 
-    public String getPathString(){
+    public String getPathString(){//To get the path of the car, if the starting is 1, the path is A-B-C-D, if 2, B-C-D-A etc.
         String s = "";
         switch (getLocation()) {
             case 1:
@@ -396,6 +398,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return s;
     }
 
+    //getters and setters
 
     public Image getImage() {
         return image;
@@ -427,7 +430,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public AtomicReference<Long> getFinalTime() {
         return finalTime;
     }
-    public double getTime() {
+    public double getTime() { //special one, uses finalTime to get Time, truncating the time to 2 numbers after . to prevent only one car to win, when a tie 
         double time = this.getFinalTime().get().doubleValue() / 1000;
         String s = String.format("%.2f", time);
         time = Double.parseDouble(s);
@@ -471,8 +474,9 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
 
     @Override
     public String toString() {
-        String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " + getColor() +
-                "and the type is " + getType() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() );
+        String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " +"and the type is " + getType()
+        + getColor() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() + " and the location is: "
+         + getLocation() + " and the final time is: " + getFinalTime() + " and the time is: " + getTime());
         return s;
     }
 }
