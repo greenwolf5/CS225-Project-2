@@ -3,3 +3,10 @@
 .vscode/launch.json
 testGui.java
 .idea/workspace.xml
+/AlertBox.class
+/Car.class
+/EndScene.class
+/GameGui.class
+/RaceScene.class
+/StartScene.class
+/Track.class
