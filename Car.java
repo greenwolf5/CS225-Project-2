@@ -191,7 +191,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         SequentialTransition seqT = new SequentialTransition(this);
         Random random = new Random();
         TranslateTransition breakdown = new TranslateTransition();
-        breakdown.setOnFinished(event -> this.carFire());
+        breakdown.setOnFinished(event -> {this.carFire();finalTime.set(0L);});
         int turns = 0;
         
         final Long time = System.currentTimeMillis();
