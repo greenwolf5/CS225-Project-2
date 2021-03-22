@@ -1,26 +1,16 @@
 
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class RaceScene implements EventHandler<Event> {
     private Car carOne;
@@ -28,22 +18,11 @@ public class RaceScene implements EventHandler<Event> {
     private Car carThree;
     private Track raceTrack = new Track();
     private Button btnStartRace;
+    private Button btnEndRace;
     private Long carOneTime = 0L;
     private Long carTwoTime = 0L;
     private Long carThreeTime = 0L;
-    private Random random = new Random();
-    private int breakdownFlag;
-
-    // private;
-    // private;
-    // private;
-    // private;
-    // private;
-    // private;
-    // private;
-    // private;
-    // private;
-    // private;
+    private Text txtWarning;
 
     public RaceScene(Car car1, Car car2, Car car3) {
         carOne = car1;
@@ -52,8 +31,58 @@ public class RaceScene implements EventHandler<Event> {
 
         carThree = car3;
 
+        txtWarning = new Text("Wait for all cars to finish moving");
+        txtWarning.setFont(Font.font(30));
+        txtWarning.setFill(Color.WHITE);
+        txtWarning.setVisible(false);
+
         btnStartRace = new Button("Start");
+        btnStartRace.setFont(Font.font(40));
+        btnStartRace.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnStartRace.setOnMouseEntered(E -> btnStartRace.setBackground(new Background(new BackgroundFill
+                (Color.DODGERBLUE, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnStartRace.setOnMouseExited(E -> btnStartRace.setBackground(new Background(new BackgroundFill
+                (Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY))));
         btnStartRace.setOnMouseClicked(this);
+
+        btnEndRace = new Button("Finish");
+        btnEndRace.setVisible(false);
+        btnEndRace.setFont(Font.font(40));
+        btnEndRace.setTextFill(Color.WHITE);
+        btnEndRace.setBackground(new Background(new BackgroundFill(Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnEndRace.setOnMouseEntered(E -> btnEndRace.setBackground(new Background(new BackgroundFill
+                (Color.DARKRED, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnEndRace.setOnMouseExited(E -> btnEndRace.setBackground(new Background(new BackgroundFill
+                (Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnEndRace.setOnMouseClicked(this);
+    }
+
+    public Car getCarOne(){
+        return carOne;
+    }
+
+    public Car getCarTwo(){
+        return carTwo;
+    }
+
+    public Car getCarThree(){
+        return carThree;
+    }
+
+    public Long getCarOneTime(){
+        return carOneTime;
+    }
+
+    public Long getCarTwoTime(){
+        return carTwoTime;
+    }
+
+    public Long getCarThreeTime(){
+        return carThreeTime;
+    }
+
+    public Button getBtnEndRace(){
+        return btnEndRace;
     }
 
     private void determineStartingLocation(Car carOne, Car carTwo, Car carThree) {
@@ -103,16 +132,20 @@ public class RaceScene implements EventHandler<Event> {
         carPosition(carTwo);
         carPosition(carThree);
 
-        System.out.println("Car one's location: " + carOne.getLocation() + " and carTwo's location: "
-                + carTwo.getLocation() + " and carThree's location: " + carThree.getLocation());
+        AnchorPane.setTopAnchor(btnStartRace, 480.0);
+        AnchorPane.setLeftAnchor(btnStartRace, 740.0);
 
-        AnchorPane.setTopAnchor(btnStartRace, 500.0);
-        AnchorPane.setLeftAnchor(btnStartRace, 500.0);
+        AnchorPane.setTopAnchor(btnEndRace, 480.0);
+        AnchorPane.setLeftAnchor(btnEndRace, 730.0);
+
+        AnchorPane.setTopAnchor(txtWarning, 600.0);
+        AnchorPane.setLeftAnchor(txtWarning, 610.0);
 
         anchorPane.setBackground(
-                new Background(new BackgroundFill(Color.rgb(0, 132, 0), CornerRadii.EMPTY, Insets.EMPTY)));
+                new Background(new BackgroundFill(Color.rgb(0, 132, 0),
+                        CornerRadii.EMPTY, Insets.EMPTY)));
 
-        anchorPane.getChildren().addAll(track, carOne, carTwo, carThree, btnStartRace);
+        anchorPane.getChildren().addAll(track, carOne, carTwo, carThree, btnStartRace, btnEndRace, txtWarning);
 
         Scene scene = new Scene(anchorPane, 1580, 1030);
         return scene;
@@ -125,18 +158,21 @@ public class RaceScene implements EventHandler<Event> {
             carOne.carMovement(carOne.getLocation());
             carTwo.carMovement(carTwo.getLocation());
             carThree.carMovement(carThree.getLocation());
-            carOneTime = carOne.getFinalTime().get();
-            carTwoTime = carTwo.getFinalTime().get();
-            carThreeTime = carThree.getFinalTime().get();
-            System.out.println("AAAAAAAAAAA");
-            System.out.println(carOneTime);
-            
-       
-                
-            
-                System.out.println("Car one is done: " + carOne.getFinalTime().get());
 
+            btnEndRace.setVisible(true);
+        }
+        if (event.getSource() == btnEndRace) {
+            if(carOne.getFinalTime().get() == null || carTwo.getFinalTime().get() == null ||
+                    carThree.getFinalTime().get() == null){
+                txtWarning.setVisible(true);
+            }
+            else{
+                carOneTime = carOne.getFinalTime().get();
+                carTwoTime = carOne.getFinalTime().get();
+                carThreeTime = carOne.getFinalTime().get();
 
+                GameGui.consume(event);
+            }
         }
     }
 }

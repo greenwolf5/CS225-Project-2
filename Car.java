@@ -23,7 +23,8 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int breakdownFlag;
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
-    
+    private double time;
+
 
     //add the rectangle constructor for size and adding the picture
 
@@ -34,6 +35,8 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         type = 1;
         color = 1;
         this.setFill(new ImagePattern(setCarPicture(1, 1)));
+        finalTime = new AtomicReference<>(0L);
+        location = 1;
     }
 
     public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O
@@ -168,7 +171,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         if(carChance > breakChance){
             breakdown = true;
         }
-        System.out.println("Car one's actual chance to breakdown is " + carChance + " and the roll it did was " + breakChance);
         return breakdown;
     }
 
@@ -191,7 +193,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         TranslateTransition breakdown = new TranslateTransition();
         breakdown.setOnFinished(event -> this.carFire());
         int turns = 0;
-        
+
         final Long time = System.currentTimeMillis();
 
         seqT.setOnFinished(event -> finalTime.set(System.currentTimeMillis() - time));
@@ -226,27 +228,27 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             }
         }
 
-                while(turns < 4){
-                    if(location == breakdownFlag){
-                        seqT.getChildren().add(breakdown);
-                        seqT.setOnFinished(event -> finalTime.set(9999L));//always the "slowest" 
-                        seqT.play();
-                        return;//justin says this goes here lol
-                    }
-                    if(this.doHandlingCheck()){
-                        seqT.getChildren().add(spinOut());
-                    }
-                    seqT.getChildren().addAll(translate(location, this.getSpeed()),this.turn());
-        
-                    turns++;
-        
-                    location++;
-                    if(location == 5){
-                        location = 1;
-                    }
-                }
-                
+        while(turns < 4){
+            if(location == breakdownFlag){
+                seqT.getChildren().add(breakdown);
+                seqT.setOnFinished(event -> finalTime.set(9999999L));//always the "slowest"
                 seqT.play();
+                return;//justin says this goes here lol
+            }
+            if(this.doHandlingCheck()){
+                seqT.getChildren().add(spinOut());
+            }
+            seqT.getChildren().addAll(translate(location, this.getSpeed()),this.turn());
+
+            turns++;
+
+            location++;
+            if(location == 5){
+                location = 1;
+            }
+        }
+
+        seqT.play();
     }
 
     private RotateTransition spinOut(){
@@ -395,7 +397,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
         return s;
     }
-    
+
 
     public Image getImage() {
         return image;
@@ -427,6 +429,14 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public AtomicReference<Long> getFinalTime() {
         return finalTime;
     }
+    public double getTime() {
+        double time = this.getFinalTime().get().doubleValue() / 1000;
+
+        String s = String.format("%.2f", time);
+
+        time = Double.parseDouble(s);
+        return time;
+    }
 
     public void setImage(Image image) {
         this.image = image;
@@ -456,8 +466,11 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void setLocation(int location) {
         this.location = location;
     }
-    public void setTime(AtomicReference<Long> finalTime) {
+    public void setFinalTime(AtomicReference<Long> finalTime) {
         this.finalTime = finalTime;
+    }
+    public void setTime(double time) {
+        this.time = time;
     }
 
     @Override

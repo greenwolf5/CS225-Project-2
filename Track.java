@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 
 //importations
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -29,6 +34,7 @@ public class Track {
     private ArrayList<Line> laneVer;
 
     //constructor
+    @SuppressWarnings("exports")
     public Track(double distance, Rectangle rec1, Rectangle rec2, Pane pane, Line line, Color color, Text lblPointA,
                  Text lblPointB, Text lblPointC, Text lblPointD) {
 
@@ -70,74 +76,92 @@ public class Track {
         this.distance = distance;
     }
 
+    @SuppressWarnings("exports")
     public Rectangle getRec1() {
         return rec1;
     }
 
+    @SuppressWarnings("exports")
     public void setRec1(Rectangle rec1) {
         this.rec1 = rec1;
     }
 
+    @SuppressWarnings("exports")
     public Rectangle getRec2() {
         return rec2;
     }
 
+    @SuppressWarnings("exports")
     public void setRec2(Rectangle rec2) {
         this.rec2 = rec2;
     }
 
+    @SuppressWarnings("exports")
     public Pane getPane() {
         return pane;
     }
 
+    @SuppressWarnings("exports")
     public void setPane(Pane pane) {
         this.pane = pane;
     }
 
+    @SuppressWarnings("exports")
     public Line getLine() {
         return line;
     }
 
+    @SuppressWarnings("exports")
     public void setLine(Line line) {
         this.line = line;
     }
 
+    @SuppressWarnings("exports")
     public Color getColor() {
         return color;
     }
 
+    @SuppressWarnings("exports")
     public void setColor(Color color) {
         this.color = color;
     }
 
+    @SuppressWarnings("exports")
     public Text getLblPointA() {
         return lblPointA;
     }
 
+    @SuppressWarnings("exports")
     public void setLblPointA(Text lblPointA) {
         this.lblPointA = lblPointA;
     }
 
+    @SuppressWarnings("exports")
     public Text getLblPointB() {
         return lblPointB;
     }
 
+    @SuppressWarnings("exports")
     public void setLblPointB(Text lblPointB) {
         this.lblPointB = lblPointB;
     }
 
+    @SuppressWarnings("exports")
     public Text getLblPointC() {
         return lblPointC;
     }
 
+    @SuppressWarnings("exports")
     public void setLblPointC(Text lblPointC) {
         this.lblPointC = lblPointC;
     }
 
+    @SuppressWarnings("exports")
     public Text getLblPointD() {
         return lblPointD;
     }
 
+    @SuppressWarnings("exports")
     public void setLblPointD(Text lblPointD) {
         this.lblPointD = lblPointD;
     }
@@ -247,6 +271,7 @@ public class Track {
     }
 
     //horizontal lane()
+    @SuppressWarnings({ "exports" })
     public ArrayList<Line> lane() {
         laneHo=new ArrayList<Line>();
         int incrementx=200; int incrementy=40;
@@ -302,26 +327,27 @@ public class Track {
     }
 
     //method for Text
+    @SuppressWarnings("static-access")
     public ArrayList<Text> labels() {
         ArrayList<Text> labels=new ArrayList<Text>();
         lblPointA=new Text(10,50, "A");
         lblPointA.setFont(new Font("Arial", 50));
-        lblPointA.setFill(Color.WHITE);
+        lblPointA.setFill(color.WHITE);
         lblPointA.setStroke(Color.RED);
 
         lblPointB=new Text(1460,50, "B");
         lblPointB.setFont(new Font("Arial", 50));
-        lblPointB.setFill(Color.WHITE);
+        lblPointB.setFill(color.WHITE);
         lblPointB.setStroke(Color.RED);
 
         lblPointC=new Text(1460,940, "C");
         lblPointC.setFont(new Font("Arial", 50));
-        lblPointC.setFill(Color.WHITE);
+        lblPointC.setFill(color.WHITE);
         lblPointC.setStroke(Color.RED);
 
         lblPointD=new Text(10,940, "D");
         lblPointD.setFont(new Font("Arial", 50));
-        lblPointD.setFill(Color.WHITE);
+        lblPointD.setFill(color.WHITE);
         lblPointD.setStroke(Color.RED);
 
         labels.add(lblPointA);

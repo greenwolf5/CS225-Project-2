@@ -30,8 +30,9 @@ public class StartScene implements EventHandler<Event> {
     private Car carThree;
 
     public StartScene(){
+
         lblTitle.setText("e-Racers");
-        lblTitle.setFont(Font.font("Bauhaus 93", 40));
+        lblTitle.setFont(Font.font("Bauhaus 93", 50));
         lblTitle.setTextFill(Color.GOLD);
 
         lblCarOne.setText("Car 1:");
@@ -328,7 +329,7 @@ public class StartScene implements EventHandler<Event> {
         anchorPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         AnchorPane.setTopAnchor(lblTitle, 20.0);
-        AnchorPane.setLeftAnchor(lblTitle, 420.0);
+        AnchorPane.setLeftAnchor(lblTitle, 400.0);
 
         AnchorPane.setTopAnchor(lblCarOne, 100.0);
         AnchorPane.setLeftAnchor(lblCarOne, 120.0);
