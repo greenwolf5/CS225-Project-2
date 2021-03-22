@@ -1,8 +1,15 @@
 //Shane Callahan
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class Car extends Rectangle {//I am extending shape since I think this'll be necessary to paste the picture on the GUI, and to translate it.
     private Image image;
@@ -15,6 +22,10 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int breakdownChance = 0;
     public static final int X_SIZE = 200;
     public static final int Y_SIZE = 100;
+    private int breakdownFlag;
+    private int location; //1 = A, 2 = B, 3 = C, 4 = D
+    private AtomicReference<Long> finalTime = new AtomicReference<>();
+    
 
     //add the rectangle constructor for size and adding the picture
 
@@ -158,8 +169,8 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
 
         if(carChance > breakChance){
             breakdown = true;
-            carFire();
         }
+        System.out.println("Car one's actual chance to breakdown is " + carChance + " and the roll it did was " + breakChance);
         return breakdown;
     }
 
@@ -168,15 +179,114 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         int carChance = (handling*10);
         Random randomGen = new Random();
         int handleChance = (randomGen.nextInt(100)+1);
-
-        System.out.println("Carchance is : " + carChance);
-        System.out.println("handleChance is: " + handleChance);
-
         if(carChance < handleChance){
             handleFailure = true;
         }
         return handleFailure;
     }
+
+
+    public void carMovement(int startLoc){
+        int location = startLoc;
+        SequentialTransition seqT = new SequentialTransition(this);
+        Random random = new Random();
+        TranslateTransition breakdown = new TranslateTransition();
+        breakdown.setOnFinished(event -> this.carFire());
+        int turns = 0;
+        
+        final Long time = System.currentTimeMillis();
+
+        seqT.setOnFinished(event -> finalTime.set(System.currentTimeMillis() - time));
+
+        if(this.doBreakdownCheck()){
+            int dur;
+            switch (random.nextInt(4)){//breakdown check.
+                case 0:
+                    breakdown.setByX(300);
+                    dur = (11 - this.getSpeed()) * 500;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 1;
+                    break;
+                case 1:
+                    breakdown.setByY(100);
+                    dur = (11 - this.getSpeed()) * 250;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 2;
+                    break;
+                case 2:
+                    breakdown.setByX(-300);
+                    dur = (11 - this.getSpeed()) * 500;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 3;
+                    break;
+                case 3:
+                    breakdown.setByY(-100);
+                    dur = (11 - this.getSpeed()) * 250;
+                    breakdown.setDuration(Duration.millis(dur));
+                    breakdownFlag = 4;
+                    break;
+            }
+        }
+
+                while(turns < 4){
+                    if(location == breakdownFlag){
+                        seqT.getChildren().add(breakdown);
+                        seqT.play();
+                        return;//justin says this goes here lol
+                    }
+                    if(this.doHandlingCheck()){
+                        seqT.getChildren().add(spinOut());
+                    }
+                    seqT.getChildren().addAll(translate(location, this.getSpeed()),this.turn());
+        
+                    turns++;
+        
+                    location++;
+                    if(location == 5){
+                        location = 1;
+                    }
+                }
+                
+                seqT.play();
+    }
+
+    private RotateTransition spinOut(){
+        RotateTransition spinOut = new RotateTransition(Duration.millis(2000));
+        spinOut.setByAngle(360);
+        return spinOut;
+    }
+
+    private RotateTransition turn(){
+        RotateTransition turn = new RotateTransition(Duration.millis(500));
+        turn.setByAngle(90);
+        return turn;
+    }
+
+    private TranslateTransition translate(int location, int speed){
+        int durLong = (11 - speed) * 1000;
+        double durShort = durLong / 1.8;
+        TranslateTransition translateTransition = new TranslateTransition();
+        switch (location){//NONE OF THESE ARE THE CORRECT VALUES.
+            case 1:
+                translateTransition.setByX(1120);
+                translateTransition.setDuration(Duration.millis(durLong));
+                break;
+            case 2:
+                translateTransition.setByY(610);
+                translateTransition.setDuration(Duration.millis(durShort));
+                break;
+            case 3:
+                translateTransition.setByX(-1120);
+                translateTransition.setDuration(Duration.millis(durLong));
+                break;
+            case 4:
+                translateTransition.setByY(-610);
+                translateTransition.setDuration(Duration.millis(durShort));
+                break;
+        }
+        return translateTransition;
+    }
+
 
 
     public Image getImage() {
@@ -203,6 +313,12 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public int getBreakdownChance() {
         return breakdownChance;
     }
+    public int getLocation() {
+        return location;
+    }
+    public AtomicReference<Long> getFinalTime() {
+        return finalTime;
+    }
 
     public void setImage(Image image) {
         this.image = image;
@@ -228,6 +344,12 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
     public void setBreakdownChance(int breakdownChance) {
         this.breakdownChance = breakdownChance;
+    }
+    public void setLocation(int location) {
+        this.location = location;
+    }
+    public void setTime(AtomicReference<Long> finalTime) {
+        this.finalTime = finalTime;
     }
 
     @Override
