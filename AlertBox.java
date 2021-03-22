@@ -23,7 +23,7 @@ public class AlertBox {
         final String FONT_TYPE = "Times New Roman";
         final double PREF_SIZE = 20.0;
 
-        BackgroundFill backGroundFill = new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backGroundFill = new BackgroundFill(Color.LIGHTSTEELBLUE, CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(backGroundFill);
 
         Stage stage = new Stage();

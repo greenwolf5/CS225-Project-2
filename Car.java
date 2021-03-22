@@ -24,8 +24,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
     private double time;
-    
-
     //add the rectangle constructor for size and adding the picture
 
     public Car(){
@@ -39,7 +37,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         location = 1;
     }
 
-    public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O
+    public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O i'm just playin'
         super(X_SIZE,Y_SIZE);
 
 
@@ -193,7 +191,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         TranslateTransition breakdown = new TranslateTransition();
         breakdown.setOnFinished(event -> this.carFire());
         int turns = 0;
-        
+
         final Long time = System.currentTimeMillis();
 
         seqT.setOnFinished(event -> finalTime.set(System.currentTimeMillis() - time));
@@ -228,27 +226,27 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             }
         }
 
-                while(turns < 4){
-                    if(location == breakdownFlag){
-                        seqT.getChildren().add(breakdown);
-                        seqT.setOnFinished(event -> finalTime.set(9999L));//always the "slowest" 
-                        seqT.play();
-                        return;//justin says this goes here lol
-                    }
-                    if(this.doHandlingCheck()){
-                        seqT.getChildren().add(spinOut());
-                    }
-                    seqT.getChildren().addAll(translate(location, this.getSpeed()),this.turn());
-        
-                    turns++;
-        
-                    location++;
-                    if(location == 5){
-                        location = 1;
-                    }
-                }
-                
+        while(turns < 4){
+            if(location == breakdownFlag){
+                seqT.getChildren().add(breakdown);
+                seqT.setOnFinished(event -> finalTime.set(9999999L));//always the "slowest"
                 seqT.play();
+                return;//justin says this goes here lol
+            }
+            if(this.doHandlingCheck()){
+                seqT.getChildren().add(spinOut());
+            }
+            seqT.getChildren().addAll(translate(location, this.getSpeed()),this.turn());
+
+            turns++;
+
+            location++;
+            if(location == 5){
+                location = 1;
+            }
+        }
+
+        seqT.play();
     }
 
     private RotateTransition spinOut(){
@@ -397,7 +395,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
         return s;
     }
-    
+
 
     public Image getImage() {
         return image;
@@ -431,9 +429,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
     public double getTime() {
         double time = this.getFinalTime().get().doubleValue() / 1000;
-
-        String s = String.format("%.2F", time);
-
+        String s = String.format("%.2f", time);
         time = Double.parseDouble(s);
         return time;
     }

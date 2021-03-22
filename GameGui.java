@@ -7,7 +7,7 @@ public class GameGui extends Application {
 
     private static StartScene startScene = new StartScene();
     private static RaceScene raceScene;
-//    private static EndScene endScene = new EndScene();
+    private static EndScene endScene;
     private static Stage window;
 
     @Override
@@ -17,6 +17,7 @@ public class GameGui extends Application {
         window.setTitle("e-Racers");
         window.setResizable(false);
         window.setScene(startScene.scene());
+
         window.show();
 
     }
@@ -26,6 +27,10 @@ public class GameGui extends Application {
         {
             raceScene = new RaceScene(startScene.getCarOne(), startScene.getCarTwo(), startScene.getCarThree());
             window.setScene(raceScene.scene());
+        }
+        if(event.getSource() == raceScene.getBtnEndRace()){
+            endScene = new EndScene(raceScene.getCarOne(), raceScene.getCarTwo(), raceScene.getCarThree());
+            window.setScene(endScene.scene());
         }
     }
 
