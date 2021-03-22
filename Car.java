@@ -430,6 +430,11 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         return finalTime;
     }
     public double getTime() {
+        double time = this.getFinalTime().get().doubleValue() / 1000;
+
+        String s = String.format("%.2F", time);
+
+        time = Double.parseDouble(s);
         return time;
     }
 
