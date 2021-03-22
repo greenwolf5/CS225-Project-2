@@ -18,6 +18,9 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class RaceScene implements EventHandler<Event> {
     private Car carOne;
@@ -30,20 +33,19 @@ public class RaceScene implements EventHandler<Event> {
     private Long carThreeTime = 0L;
     private Random random = new Random();
     private int breakdownFlag;
-    
 
-//    private;
-//    private;
-//    private;
-//    private;
-//    private;
-//    private;
-//    private;
-//    private;
-//    private;
-//    private;
+    // private;
+    // private;
+    // private;
+    // private;
+    // private;
+    // private;
+    // private;
+    // private;
+    // private;
+    // private;
 
-    public RaceScene(Car car1, Car car2, Car car3){
+    public RaceScene(Car car1, Car car2, Car car3) {
         carOne = car1;
 
         carTwo = car2;
@@ -54,13 +56,13 @@ public class RaceScene implements EventHandler<Event> {
         btnStartRace.setOnMouseClicked(this);
     }
 
-    private void determineStartingLocation(Car carOne, Car carTwo, Car carThree){
+    private void determineStartingLocation(Car carOne, Car carTwo, Car carThree) {
         ArrayList<Integer> locationPlaces = new ArrayList<Integer>();
-        locationPlaces.add(1);//0
-        locationPlaces.add(2);//1
-        locationPlaces.add(3);//2
-        locationPlaces.add(4);//3
-    
+        locationPlaces.add(1);// 0
+        locationPlaces.add(2);// 1
+        locationPlaces.add(3);// 2
+        locationPlaces.add(4);// 3
+
         Collections.shuffle(locationPlaces);
 
         carOne.setLocation(locationPlaces.get(0));
@@ -68,29 +70,26 @@ public class RaceScene implements EventHandler<Event> {
         carThree.setLocation(locationPlaces.get(2));
     }
 
-    private void carPosition(Car car){
-        if(car.getLocation() == 1){
-            AnchorPane.setTopAnchor(car, 100.0);
-            AnchorPane.setLeftAnchor(car, 100.0);
+    private void carPosition(Car car) {
+        if (car.getLocation() == 1) {
+            AnchorPane.setTopAnchor(car, 180.0);
+            AnchorPane.setLeftAnchor(car, 160.0);
             car.setRotate(180);
-        }
-        else if(car.getLocation() == 2){
-            AnchorPane.setTopAnchor(car, 100.0);
-            AnchorPane.setRightAnchor(car, 100.0);
+        } else if (car.getLocation() == 2) {
+            AnchorPane.setTopAnchor(car, 180.0);
+            AnchorPane.setRightAnchor(car, 110.0);
             car.setRotate(-90);
-        }
-        else if(car.getLocation() == 3){
-            AnchorPane.setBottomAnchor(car, 100.0);
-            AnchorPane.setRightAnchor(car, 100.0);
-        }
-        else{
-            AnchorPane.setBottomAnchor(car, 100.0);
-            AnchorPane.setLeftAnchor(car, 100.0);
+        } else if (car.getLocation() == 3) {
+            AnchorPane.setBottomAnchor(car, 140.0);
+            AnchorPane.setRightAnchor(car, 110.0);
+        } else {
+            AnchorPane.setBottomAnchor(car, 140.0);
+            AnchorPane.setLeftAnchor(car, 160.0);
             car.setRotate(90);
         }
     }
 
-    public Scene scene(){
+    public Scene scene() {
         AnchorPane anchorPane = new AnchorPane();
 
         Pane track = raceTrack.trackpainting();
@@ -98,18 +97,20 @@ public class RaceScene implements EventHandler<Event> {
         AnchorPane.setTopAnchor(track, 40.0);
         AnchorPane.setLeftAnchor(track, 40.0);
 
-        determineStartingLocation(carOne,carTwo,carThree);
+        determineStartingLocation(carOne, carTwo, carThree);
 
         carPosition(carOne);
         carPosition(carTwo);
         carPosition(carThree);
 
-        System.out.println("Car one's location: " + carOne.getLocation() + " and carTwo's location: " + carTwo.getLocation() + " and carThree's location: " + carThree.getLocation());
+        System.out.println("Car one's location: " + carOne.getLocation() + " and carTwo's location: "
+                + carTwo.getLocation() + " and carThree's location: " + carThree.getLocation());
 
         AnchorPane.setTopAnchor(btnStartRace, 500.0);
         AnchorPane.setLeftAnchor(btnStartRace, 500.0);
 
-        anchorPane.setBackground(new Background(new BackgroundFill(Color.rgb(0,132,0), CornerRadii.EMPTY, Insets.EMPTY)));
+        anchorPane.setBackground(
+                new Background(new BackgroundFill(Color.rgb(0, 132, 0), CornerRadii.EMPTY, Insets.EMPTY)));
 
         anchorPane.getChildren().addAll(track, carOne, carTwo, carThree, btnStartRace);
 
@@ -118,10 +119,27 @@ public class RaceScene implements EventHandler<Event> {
     }
 
     @Override
-    public void handle(Event event){
-        if(event.getSource() == btnStartRace){
-            carOneTime = carOne.carMovement(carOne.getLocation());
+    public void handle(Event event) {
+        if (event.getSource() == btnStartRace) {
+            btnStartRace.setVisible(false);
+            carOne.carMovement(carOne.getLocation());
+            carTwo.carMovement(carTwo.getLocation());
+            carThree.carMovement(carThree.getLocation());
+            carOneTime = carOne.getFinalTime().get();
+            carTwoTime = carTwo.getFinalTime().get();
+            carThreeTime = carThree.getFinalTime().get();
+            System.out.println("AAAAAAAAAAA");
             System.out.println(carOneTime);
+            
+       
+                
+                Long startTime = System.currentTimeMillis();
+                startTime = System.currentTimeMillis();
+                while (System.currentTimeMillis() - startTime < 10000) { // empty block
+                }
+                System.out.println("Car one is done: " + carOne.getFinalTime().get());
+            
+
         }
     }
 }
