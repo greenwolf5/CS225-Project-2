@@ -229,7 +229,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 while(turns < 4){
                     if(location == breakdownFlag){
                         seqT.getChildren().add(breakdown);
-                        seqT.setOnFinished(event -> finalTime.set(0L));
+                        seqT.setOnFinished(event -> finalTime.set(9999L));//always the "slowest" 
                         seqT.play();
                         return;//justin says this goes here lol
                     }
