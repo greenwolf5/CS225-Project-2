@@ -24,8 +24,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
     private double time;
-
-
     //add the rectangle constructor for size and adding the picture
 
     public Car(){
@@ -39,7 +37,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         location = 1;
     }
 
-    public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O
+    public Car(int type, int color, int tire, int engine){//Justin changed the order of my paramaters >:O i'm just playin'
         super(X_SIZE,Y_SIZE);
 
 
@@ -431,9 +429,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
     public double getTime() {
         double time = this.getFinalTime().get().doubleValue() / 1000;
-
         String s = String.format("%.2f", time);
-
         time = Double.parseDouble(s);
         return time;
     }
