@@ -1,4 +1,4 @@
-
+// Team effort
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,17 +13,49 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class RaceScene implements EventHandler<Event> {
-    private Car carOne;
-    private Car carTwo;
-    private Car carThree;
-    private Track raceTrack = new Track();
-    private Button btnStartRace;
-    private Button btnEndRace;
-    private Long carOneTime = 0L;
-    private Long carTwoTime = 0L;
-    private Long carThreeTime = 0L;
-    private Text txtWarning;
+    private final Car carOne;
+    private final Car carTwo;
+    private final Car carThree;
+    private final Track raceTrack = new Track();
+    private final Button btnStartRace;
+    private final Button btnEndRace;
+    private final Text txtWarning;
 
+    // Default constructor (not used)
+    public RaceScene(){
+        carOne = new Car();
+
+        carTwo = new Car();
+
+        carThree = new Car();
+
+        txtWarning = new Text("Wait for all cars to finish moving");
+        txtWarning.setFont(Font.font(30));
+        txtWarning.setFill(Color.WHITE);
+        txtWarning.setVisible(false);
+
+        btnStartRace = new Button("Start");
+        btnStartRace.setFont(Font.font(40));
+        btnStartRace.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnStartRace.setOnMouseEntered(E -> btnStartRace.setBackground(new Background(new BackgroundFill
+                (Color.DODGERBLUE, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnStartRace.setOnMouseExited(E -> btnStartRace.setBackground(new Background(new BackgroundFill
+                (Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnStartRace.setOnMouseClicked(this);
+
+        btnEndRace = new Button("Finish");
+        btnEndRace.setVisible(false);
+        btnEndRace.setFont(Font.font(40));
+        btnEndRace.setTextFill(Color.WHITE);
+        btnEndRace.setBackground(new Background(new BackgroundFill(Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnEndRace.setOnMouseEntered(E -> btnEndRace.setBackground(new Background(new BackgroundFill
+                (Color.DARKRED, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnEndRace.setOnMouseExited(E -> btnEndRace.setBackground(new Background(new BackgroundFill
+                (Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY))));
+        btnEndRace.setOnMouseClicked(this);
+    }
+
+    // Constructor initializes the three car variables
     public RaceScene(Car car1, Car car2, Car car3) {
         carOne = car1;
 
@@ -69,21 +101,10 @@ public class RaceScene implements EventHandler<Event> {
         return carThree;
     }
 
-    public Long getCarOneTime(){
-        return carOneTime;
-    }
-
-    public Long getCarTwoTime(){
-        return carTwoTime;
-    }
-
-    public Long getCarThreeTime(){
-        return carThreeTime;
-    }
-
     public Button getBtnEndRace(){
         return btnEndRace;
     }
+
 
     private void determineStartingLocation(Car carOne, Car carTwo, Car carThree) {
         ArrayList<Integer> locationPlaces = new ArrayList<Integer>();
@@ -118,6 +139,7 @@ public class RaceScene implements EventHandler<Event> {
         }
     }
 
+    // This organizes the scene that will be displayed in the GameGui class
     public Scene scene() {
         AnchorPane anchorPane = new AnchorPane();
 
@@ -152,7 +174,23 @@ public class RaceScene implements EventHandler<Event> {
     }
 
     @Override
+    public String toString() {
+        return "RaceScene{" +
+                "carOne=" + carOne +
+                ", carTwo=" + carTwo +
+                ", carThree=" + carThree +
+                ", raceTrack=" + raceTrack +
+                ", btnStartRace=" + btnStartRace +
+                ", btnEndRace=" + btnEndRace +
+                ", txtWarning=" + txtWarning +
+                '}';
+    }
+
+    @Override
     public void handle(Event event) {
+        //Pressing the start button starts a sequential transition for each car
+        // using the carMovement method in the Car class. Also the Finish button becomes visible and this button
+        // is made invisible.
         if (event.getSource() == btnStartRace) {
             btnStartRace.setVisible(false);
             carOne.carMovement(carOne.getLocation());
@@ -161,16 +199,15 @@ public class RaceScene implements EventHandler<Event> {
 
             btnEndRace.setVisible(true);
         }
+        // The Finish button first checks to make sure the race is over by making sure none of the time values are null
+        // and if any are null the warning message appeared. If not the event is consumed by the Game Gui class and
+        // the scene transitions to the end scene.
         if (event.getSource() == btnEndRace) {
             if(carOne.getFinalTime().get() == null || carTwo.getFinalTime().get() == null ||
                     carThree.getFinalTime().get() == null){
                 txtWarning.setVisible(true);
             }
             else{
-                carOneTime = carOne.getFinalTime().get();
-                carTwoTime = carOne.getFinalTime().get();
-                carThreeTime = carOne.getFinalTime().get();
-
                 GameGui.consume(event);
             }
         }

@@ -1,4 +1,4 @@
-
+// Team effort
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -7,19 +7,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-
 public class EndScene{
-    private Label lblWinner = new Label();
-    private Label lblCarOne = new Label();
-    private Label lblCarTwo = new Label();
-    private Label lblCarThree = new Label();
-    private GridPane carOneTable;
-    private GridPane carTwoTable;
-    private GridPane carThreeTable;
-    private Car carOne;
-    private Car carTwo;
-    private Car carThree;
+    private final Label lblWinner = new Label();
+    private final Label lblCarOne = new Label();
+    private final Label lblCarTwo = new Label();
+    private final Label lblCarThree = new Label();
+    private final GridPane carOneTable;
+    private final GridPane carTwoTable;
+    private final GridPane carThreeTable;
+    private final Car carOne;
+    private final Car carTwo;
+    private final Car carThree;
 
+    // Default constructor. Was used for testing but not used otherwise by the program
     public EndScene(){
         carOne = new Car();
         carTwo = new Car();
@@ -43,6 +43,7 @@ public class EndScene{
         carThreeTable = createTable(carThree);
     }
 
+    // This constructor takes the three car objects in and creates their tables.
     public EndScene(Car car1, Car car2, Car car3){
         carOne = car1;
         carTwo = car2;
@@ -66,9 +67,12 @@ public class EndScene{
         carThreeTable = createTable(carThree);
     }
 
+    // Creates the table for one car displaying all of the information from the race
     private GridPane createTable(Car car){
 
         String timeString;
+        // This checks if the car broke down (9999999L means it broke down which is elaborated upon in the next comment)
+        // and if it does its time string for the table reads did not finish, otherwise its time is shown normally
         if(car.getFinalTime().get() == 9999999L){
             timeString = "Did Not Finish";
         }
@@ -108,6 +112,14 @@ public class EndScene{
         return gridPane;
     }
 
+    // This checks if there is a winner, multiple winners, or if no cars survived, and changes the label at the top of
+    // the scene accordingly
+    //
+    // ** If a car breaks down we needed to set its time to an arbitrarily large number (hence 9999999L) solely
+    // ** for this method. We at first had a broken down car's time set to zero but obviously zero would be less
+    // ** then the other times and it would declare that broken down car the winner. Of course we could have
+    // ** complicated this method further by, after the first if statement, checking if any of the cars have a zero
+    // ** time value and making sure to ignore those but we found what we have now to be a much simpler alternative.
     private void checkWinner(){
         if(carOne.getFinalTime().get() == 9999999L && carTwo.getFinalTime().get() == 9999999L
                 && carThree.getFinalTime().get() == 9999999L){
@@ -129,6 +141,7 @@ public class EndScene{
         lblWinner.setText("Multiple Winners");
     }
 
+    // This organizes the scene that will be displayed in the GameGui class
     public Scene scene(){
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -160,5 +173,21 @@ public class EndScene{
         Scene scene = new Scene(anchorPane, 1005, 550);
 
         return scene;
+    }
+
+    @Override
+    public String toString() {
+        return "EndScene{" +
+                "lblWinner=" + lblWinner +
+                ", lblCarOne=" + lblCarOne +
+                ", lblCarTwo=" + lblCarTwo +
+                ", lblCarThree=" + lblCarThree +
+                ", carOneTable=" + carOneTable +
+                ", carTwoTable=" + carTwoTable +
+                ", carThreeTable=" + carThreeTable +
+                ", carOne=" + carOne +
+                ", carTwo=" + carTwo +
+                ", carThree=" + carThree +
+                '}';
     }
 }

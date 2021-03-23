@@ -1,5 +1,6 @@
 //Shane Callahan
 import java.io.FileInputStream;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.animation.RotateTransition;
@@ -24,7 +25,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     private int breakdownFlag;
     private int location; //1 = A, 2 = B, 3 = C, 4 = D
     private AtomicReference<Long> finalTime = new AtomicReference<>();
-    private double time;
 
     public Car(){
         super(X_SIZE,Y_SIZE);
@@ -54,29 +54,50 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     }
 
 
-    public Image setCarPicture(int type, int color){//Takes the car type and car color to assign the car with a picture
+    public Image setCarPicture(int type, int color){//Takes the car type and car color to assign the car with a picture if the program cannot get files from computer,
+        //it will get files from the web instead, slower, causes lag, but works.
         if(type == 1){
             speed +=1;
             handling +=7;
             if(color == 1){
                 try {
-                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\blue.png"); 
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\blue.png");
                     image = new Image(inputstream);
                 } catch (Exception e) {
-                    System.out.println(e + " error loading blue truck");
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/blue.png?raw=true");
                 }
             }
             else if(color == 2){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/green.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\green.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/green.png?raw=true");
+                }
             }
             else if(color == 3){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/pink.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\pink.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/pink.png?raw=true");
+                }
             }
             else if(color == 4){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/red.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\red.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/red.png?raw=true");
+                }
             }
             else if(color == 5){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/yellow.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\yellow.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/yellow.png?raw=true");
+                }
             }
         }
         else if(type == 2){
@@ -84,19 +105,44 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=2;
             breakdownChance +=2;
             if(color == 1){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/blue.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\blue.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/Jeep/blue.png?raw=true");
+                }
             }
             else if(color == 2){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/green.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\green.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/Jeep/green.png?raw=true");
+                }
             }
             else if(color == 3){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/pink.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\pink.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/Jeep/pink.png?raw=true");
+                }
             }
             else if(color == 4){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/red.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\red.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/Jeep/red.png?raw=true");
+                }
             }
             else if(color == 5){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/yellow.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\yellow.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/Jeep/yellow.png?raw=true");
+                }
             }
         }
         else if(type ==3){
@@ -104,34 +150,78 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=1;
             breakdownChance +=3;
             if(color == 1){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/blue.png?raw=true");//PLACE HOLDER PICTURES
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\sports_car\\blue.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/sports_car/blue.png?raw=true");
+                }
             }
             else if(color == 2){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/green.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\sports_car\\green.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/sports_car/green.png?raw=true");
+                }
             }
             else if(color == 3){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/pink.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\sports_car\\pink.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/sports_car/pink.png?raw=true");
+                }
             }
             else if(color == 4){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/red.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\sports_car\\red.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/sports_car/red.png?raw=true");
+                }
             }
             else if(color == 5){
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/yellow.png?raw=true");
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\sports_car\\yellow.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/sports_car/yellow.png?raw=true");
+                }
             }
         }
         return image;
     }
 
-    public void carFire(){ //Used when car breaks down, gets fire version 
+    public void carFire(){ //Used when car breaks down, gets fire version
+        Image image;
         switch (type) {
             case 1:
-                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/truck/truck_fire.png?raw=true")));
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\truck_fire.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/truck_fire.png?raw=true");
+                }
+                this.setFill(new ImagePattern(image));
                 break;
             case 2:
-                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/Jeep/jeep_fire.png?raw=true")));
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\jeep\\jeep_fire.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/jeep/jeep_fire.png?raw=true");
+                }
+                this.setFill(new ImagePattern(image));
                 break;
             case 3:
-                this.setFill(new ImagePattern(new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project%20car%20images/sports%20car/sport_fire.png?raw=true")));
+                try {
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\sports_car\\sport_fire.png");
+                    image = new Image(inputstream);
+                } catch (Exception e) {
+                    image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/sports_car/sport_fire.png?raw=true");
+                }
+                this.setFill(new ImagePattern(image));
                 break;
         }
     }
@@ -468,15 +558,30 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
     public void setFinalTime(AtomicReference<Long> finalTime) {
         this.finalTime = finalTime;
     }
-    public void setTime(double time) {
-        this.time = time;
-    }
 
     @Override
     public String toString() {
         String s = ("image is: " + getImage() + " and the tire type is: " + getTire() + " and the engine type is: " + getEngine() + " and the color type is: " +"and the type is " + getType()
-        + getColor() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() + " and the location is: "
-         + getLocation() + " and the final time is: " + getFinalTime() + " and the time is: " + getTime());
+                + getColor() + " and the speed is: " + getSpeed() + " and the handling is " + getHandling() + " and the breakdown chance is: " + getBreakdownChance() + " and the location is: "
+                + getLocation() + " and the final time is: " + getFinalTime() + " and the time is: " + getTime());
         return s;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return tire == car.tire &&
+                engine == car.engine &&
+                type == car.type &&
+                color == car.color &&
+                speed == car.speed &&
+                handling == car.handling &&
+                breakdownChance == car.breakdownChance &&
+                breakdownFlag == car.breakdownFlag &&
+                location == car.location &&
+                image.equals(car.image) &&
+                Objects.equals(finalTime, car.finalTime);
     }
 }
