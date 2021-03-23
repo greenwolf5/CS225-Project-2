@@ -84,6 +84,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 }
             }
             else if(color == 4){
+                try {
                     FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\red.png"); 
                     image = new Image(inputstream);
                 } catch (Exception e) {
@@ -104,6 +105,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=2;
             breakdownChance +=2;
             if(color == 1){
+                try {
                     FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\blue.png"); 
                     image = new Image(inputstream);
                 } catch (Exception e) {
