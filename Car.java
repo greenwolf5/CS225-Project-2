@@ -1,5 +1,6 @@
 //Shane Callahan
 import java.io.FileInputStream;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.animation.RotateTransition;
@@ -53,7 +54,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         finalTime = new AtomicReference<>(0L);
     }
 
-
     public Image setCarPicture(int type, int color){//Takes the car type and car color to assign the car with a picture if the program cannot get files from computer, 
         //it will get files from the web instead, slower, causes lag, but works.
         if(type == 1){
@@ -61,7 +61,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=7;
             if(color == 1){
                 try {
-                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\blue.png"); 
+                    FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\blue.png");
                     image = new Image(inputstream);
                 } catch (Exception e) {
                     image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/truck/blue.png?raw=true");
@@ -84,7 +84,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 }
             }
             else if(color == 4){
-                try {
                     FileInputStream inputstream = new FileInputStream("project_car_images\\truck\\red.png"); 
                     image = new Image(inputstream);
                 } catch (Exception e) {
@@ -105,7 +104,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
             handling +=2;
             breakdownChance +=2;
             if(color == 1){
-                try {
                     FileInputStream inputstream = new FileInputStream("project_car_images\\Jeep\\blue.png"); 
                     image = new Image(inputstream);
                 } catch (Exception e) {
@@ -192,7 +190,6 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
         }
         return image;
     }
-
     public void carFire(){ //Used when car breaks down, gets fire version 
         Image image;
         switch (type) {
@@ -581,6 +578,5 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 breakdownChance == car.breakdownChance &&
                 breakdownFlag == car.breakdownFlag &&
                 location == car.location;
-                
     }
 }

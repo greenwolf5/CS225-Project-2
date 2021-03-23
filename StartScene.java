@@ -1,3 +1,5 @@
+// Justin Valas
+
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,24 +13,24 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 
-
 public class StartScene implements EventHandler<Event> {
-    private Label lblTitle = new Label();
-    private Label lblCarOne = new Label();
-    private Label lblCarTwo = new Label();
-    private Label lblCarThree = new Label();
-    private Pane carOnePane;
-    private Pane carTwoPane;
-    private Pane carThreePane;
-    private Button update1;
-    private Button update2;
-    private Button update3;
-    private Button btnContinue;
-    private Button btnHelp;
+    private final Label lblTitle = new Label();
+    private final Label lblCarOne = new Label();
+    private final Label lblCarTwo = new Label();
+    private final Label lblCarThree = new Label();
+    private final Pane carOnePane;
+    private final Pane carTwoPane;
+    private final Pane carThreePane;
+    private final Button btnUpdate1;
+    private final Button btnUpdate2;
+    private final Button btnUpdate3;
+    private final Button btnContinue;
+    private final Button btnHelp;
     private Car carOne;
     private Car carTwo;
     private Car carThree;
 
+    //Constructor initializes the variables
     public StartScene(){
 
         lblTitle.setText("e-Racers");
@@ -47,32 +49,32 @@ public class StartScene implements EventHandler<Event> {
         lblCarThree.setFont(Font.font("Gill Sans MT Condensed", 30));
         lblCarThree.setTextFill(Color.GOLD);
 
-        update1 = new Button("UPDATE");
-        update1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        update1.setTextFill(Color.GOLD);
-        update1.setOnMouseEntered(E -> update1.setBackground(new Background(new BackgroundFill
+        btnUpdate1 = new Button("UPDATE");
+        btnUpdate1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnUpdate1.setTextFill(Color.GOLD);
+        btnUpdate1.setOnMouseEntered(E -> btnUpdate1.setBackground(new Background(new BackgroundFill
                 (Color.RED, CornerRadii.EMPTY, Insets.EMPTY))));
-        update1.setOnMouseExited(E -> update1.setBackground(new Background(new BackgroundFill
+        btnUpdate1.setOnMouseExited(E -> btnUpdate1.setBackground(new Background(new BackgroundFill
                 (Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY))));
-        update1.setOnMouseClicked(this);
+        btnUpdate1.setOnMouseClicked(this);
 
-        update2 = new Button("UPDATE");
-        update2.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        update2.setTextFill(Color.GOLD);
-        update2.setOnMouseEntered(E -> update2.setBackground(new Background(new BackgroundFill
+        btnUpdate2 = new Button("UPDATE");
+        btnUpdate2.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnUpdate2.setTextFill(Color.GOLD);
+        btnUpdate2.setOnMouseEntered(E -> btnUpdate2.setBackground(new Background(new BackgroundFill
                 (Color.RED, CornerRadii.EMPTY, Insets.EMPTY))));
-        update2.setOnMouseExited(E -> update2.setBackground(new Background(new BackgroundFill
+        btnUpdate2.setOnMouseExited(E -> btnUpdate2.setBackground(new Background(new BackgroundFill
                 (Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY))));
-        update2.setOnMouseClicked(this);
+        btnUpdate2.setOnMouseClicked(this);
 
-        update3 = new Button("UPDATE");
-        update3.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        update3.setTextFill(Color.GOLD);
-        update3.setOnMouseEntered(E -> update3.setBackground(new Background(new BackgroundFill
+        btnUpdate3 = new Button("UPDATE");
+        btnUpdate3.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        btnUpdate3.setTextFill(Color.GOLD);
+        btnUpdate3.setOnMouseEntered(E -> btnUpdate3.setBackground(new Background(new BackgroundFill
                 (Color.RED, CornerRadii.EMPTY, Insets.EMPTY))));
-        update3.setOnMouseExited(E -> update3.setBackground(new Background(new BackgroundFill
+        btnUpdate3.setOnMouseExited(E -> btnUpdate3.setBackground(new Background(new BackgroundFill
                 (Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY))));
-        update3.setOnMouseClicked(this);
+        btnUpdate3.setOnMouseClicked(this);
 
         btnContinue = new Button("CONTINUE >>");
         btnContinue.setFont(Font.font(20));
@@ -92,9 +94,10 @@ public class StartScene implements EventHandler<Event> {
                 (Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY))));
         btnHelp.setOnMouseClicked(this);
 
-        carOnePane = createCarPane(update1);
-        carTwoPane = createCarPane(update2);
-        carThreePane = createCarPane(update3);
+        // Creates the panes for each of the three cars
+        carOnePane = createCarPane(btnUpdate1);
+        carTwoPane = createCarPane(btnUpdate2);
+        carThreePane = createCarPane(btnUpdate3);
     }
 
     public Button getBtnContinue(){
@@ -107,6 +110,10 @@ public class StartScene implements EventHandler<Event> {
 
     public Car getCarThree(){return carThree;}
 
+    // Creates a pane with the customization options and all the important information for one car
+    // this is called three times in the constructor to repeat this for each of the three cars.
+    // The method takes a button as a parameter because the update buttons need to be distinct as they update
+    // only their own car when clicked.
     private Pane createCarPane(Button update){
         Pane pane = new Pane();
 
@@ -167,6 +174,8 @@ public class StartScene implements EventHandler<Event> {
         return pane;
     }
 
+    // This method creates a bar with ten squares using the parameter to determine how many of those squares are
+    // black. This is used to show the level out of ten for each of the car stats.
     private TilePane createStatBoxes(int value){
         TilePane tilePane = new TilePane();
         for(int i = 1; i <= 10; i++){
@@ -186,6 +195,8 @@ public class StartScene implements EventHandler<Event> {
         return tilePane;
     }
 
+    // This creates the table that shows the stats and their respective levels using the method above and a car
+    // passed as a parameter. This method is called in the create car pane method to add a table for each of the cars.
     private GridPane createStatTable(Car car){
 
         GridPane gridPane = new GridPane();
@@ -213,6 +224,10 @@ public class StartScene implements EventHandler<Event> {
         return gridPane;
     }
 
+    // This method is used to update the car to the choices made with the choice boxes. Both the stat table and
+    // the image preview are updated using this method. This method is called both when the user clicks any of the
+    // update buttons (the num parameter is which of the three cars is being updated) and by the continue button
+    // in case the user did not click update.
     private void updateCar(int num){
         int type = 0;
         int color = 0;
@@ -223,6 +238,7 @@ public class StartScene implements EventHandler<Event> {
         String tireChoice = "";
         String engineChoice = "";
 
+        // First this switch determines which car is being updated and grabs the choices from each of the choice boxes
         switch(num){
             case 1:
                 typeChoice = ((ChoiceBox<String>)carOnePane.getChildren().get(1)).getValue();
@@ -243,6 +259,7 @@ public class StartScene implements EventHandler<Event> {
                 engineChoice = ((ChoiceBox<String>)carThreePane.getChildren().get(7)).getValue();
                 break;
         }
+        // Then each of the choices need to be converted from string to int so they may be used in the Car constructor
         switch (typeChoice) {
             case "Truck":
                 type = 1;
@@ -293,11 +310,13 @@ public class StartScene implements EventHandler<Event> {
                 engine = 3;
                 break;
         }
+
+        // Last the car is updated using the choices
         switch (num){
             case 1:
                 carOne = new Car(type,color,tires,engine);
-                carOnePane.getChildren().set(10, carOne);
-                carOnePane.getChildren().set(9, createStatTable(carOne));
+                carOnePane.getChildren().set(10, carOne); // This is where the car preview is updated
+                carOnePane.getChildren().set(9, createStatTable(carOne)); // This is where the stat table is updated
                 carOnePane.getChildren().get(9).setLayoutX(20.0);
                 carOnePane.getChildren().get(9).setLayoutY(180.0);
                 carOnePane.getChildren().get(10).setLayoutX(60.0);
@@ -324,6 +343,7 @@ public class StartScene implements EventHandler<Event> {
         }
     }
 
+    // This organizes the scene that will be displayed in the GameGui class
     public Scene scene(){
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -368,16 +388,39 @@ public class StartScene implements EventHandler<Event> {
     }
 
     @Override
+    public String toString() {
+        return "StartScene{" +
+                "lblTitle=" + lblTitle +
+                ", lblCarOne=" + lblCarOne +
+                ", lblCarTwo=" + lblCarTwo +
+                ", lblCarThree=" + lblCarThree +
+                ", carOnePane=" + carOnePane +
+                ", carTwoPane=" + carTwoPane +
+                ", carThreePane=" + carThreePane +
+                ", update1=" + btnUpdate1 +
+                ", update2=" + btnUpdate2 +
+                ", update3=" + btnUpdate3 +
+                ", btnContinue=" + btnContinue +
+                ", btnHelp=" + btnHelp +
+                ", carOne=" + carOne +
+                ", carTwo=" + carTwo +
+                ", carThree=" + carThree +
+                '}';
+    }
+
+    @Override
     public void handle(Event event){
-        if(event.getSource() == update1){
+        // Update buttons update their respective cars
+        if(event.getSource() == btnUpdate1){
             updateCar(1);
         }
-        if(event.getSource() == update2){
+        if(event.getSource() == btnUpdate2){
             updateCar(2);
         }
-        if(event.getSource() == update3){
+        if(event.getSource() == btnUpdate3){
             updateCar(3);
         }
+        // When the help button is clicked a window appears containing the help information using the AlertBox class
         if(event.getSource() == btnHelp){
             AlertBox.showMessageDialogue("Help Menu", "Customize the three cars.\nClick the update " +
                     "button to see how your choices affect the car's look and stats.\nThe stats are out of ten and " +
@@ -386,6 +429,8 @@ public class StartScene implements EventHandler<Event> {
                     "out slowing the car down (Higher is better).\n Breakdown chance increases the chance of " +
                     "breaking down and preventing the car from continuing (Lower is better)");
         }
+        // The continue button first makes sure the three cars are update then lets GameGui consume the event
+        // so it can transition to the race scene.
         if(event.getSource() == btnContinue){
             updateCar(1);
             updateCar(2);

@@ -1,4 +1,4 @@
-
+// Team effort
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.stage.Stage;
@@ -22,6 +22,8 @@ public class GameGui extends Application {
 
     }
 
+    // The consume method consumes the button clicks from both the end scene and race scene that result in a scene
+    // transition. Also it passes the car objects from one scene to another using getters.
     public static void consume(Event event){
         if(event.getSource() == startScene.getBtnContinue())
         {
