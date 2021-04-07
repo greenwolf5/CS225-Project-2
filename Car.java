@@ -209,7 +209,7 @@ public class Car extends Rectangle {//I am extending shape since I think this'll
                 FileInputStream inputstream = new FileInputStream("project_car_images\\jeep\\jeep_fire.png"); 
                 image = new Image(inputstream);
             } catch (Exception e) {
-                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/jeep/jeep_fire.png?raw=true");
+                image = new Image("https://github.com/greenwolf5/CS225-Project-3/blob/main/project_car_images/Jeep/jeep_fire.png?raw=true");
             }
                 this.setFill(new ImagePattern(image));
                 break;
