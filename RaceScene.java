@@ -204,8 +204,8 @@ public class RaceScene implements EventHandler<Event> {
         // and if any are null the warning message appeared. If not the event is consumed by the Game Gui class and
         // the scene transitions to the end scene.
         if (event.getSource() == btnEndRace) {
-            if(carOne.getFinalTime().get() == null || carTwo.getFinalTime().get() == null ||
-                    carThree.getFinalTime().get() == null){
+            if(carOne.getFinalTime().get() == null || carOne.getFinalTime().get() == 0.0 || carTwo.getFinalTime().get() == null ||  carTwo.getFinalTime().get() == 0.0 ||
+                    carThree.getFinalTime().get() == null ||  carThree.getFinalTime().get() == 0.0){
                 txtWarning.setVisible(true);
             }
             else{
